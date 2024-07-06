@@ -1,0 +1,2 @@
+#!/bin/sh
+i3lock -i ~/dotfiles/assets/gruvbox-city.png

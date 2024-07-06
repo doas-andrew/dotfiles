@@ -1,0 +1,37 @@
+configuration {
+    kb-move-char-back:    "";
+    kb-move-char-forward: "";
+    kb-row-up:            "Left,j,a,Alt-j";
+    kb-row-down:          "Right,l,d,Alt-l";
+}
+
+@theme "gruvbox-dark"
+
+* {
+    alternate-normal-background: #282828;
+    selected-normal-background: #504945;
+    selected-normal-foreground: #8ec07c;
+}
+
+window {
+    width: 447px;
+}
+
+mainbox {
+    children: [ listview ];
+}
+
+listview {
+    cycle: false;
+    layout: horizontal;
+    border: none;
+    padding: 0;
+}
+
+element {
+    padding: 0 30px;
+}
+
+element-text {
+    font: "MesloLGS NF 32";
+}

@@ -1,0 +1,15 @@
+# ----------------------------------------------------------------------
+# Environment variables
+
+export COLORTERM='24bit'
+export MY_ZSH_DIR="$HOME/dotfiles/zsh"
+export WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
+
+
+# ----------------------------------------------------------------------
+# PATH
+
+PATH=$HOME/.local/bin:$PATH
+PATH=$HOME/.nimble/bin:$PATH
+type go >/dev/null && PATH=$(go env GOPATH)/bin:$PATH
+export PATH

@@ -1,0 +1,7 @@
+{
+    "window.menuBarVisibility": "toggle",
+    "workbench.colorTheme": "One Monokai",
+    "editor.minimap.enabled": false,
+    "workbench.activityBar.visible": false,
+    "editor.fontSize": 15
+}

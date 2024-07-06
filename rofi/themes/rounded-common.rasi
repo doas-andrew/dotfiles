@@ -1,0 +1,88 @@
+* {
+    font:  "Noto Sans 13";
+
+    margin:  0px;
+    padding: 0px;
+    spacing: 0px;
+    radius:  8px;
+    icons:   28px;
+
+    text-color:         @fg0;
+    background-color:   transparent;
+}
+
+window {
+    width:            500;
+    location:         center;
+    border-radius:    @radius;
+    background-color: @bg0;
+}
+
+mainbox {
+    padding:  12px;
+}
+
+inputbar {
+    children:         [entry];
+
+    //spacing:           800px;
+    padding:           8px 16px;
+
+    border:            1px;
+    border-radius:     @radius;
+
+    border-color:      @bg3;
+    background-color:  @bg1;
+}
+
+entry {
+    placeholder:        "Search";
+    placeholder-color:  @fg3;
+}
+
+message {
+    margin:            12px 0 0;
+    border-radius:     @radius;
+    border-color:      @bg2;
+    background-color:  @bg2;
+}
+
+textbox {
+    padding:  8px 24px;
+}
+
+listview {
+    lines:             8;
+    margin:            12px 0 0;
+    columns:           1;
+    fixed-height:      true;
+    background-color:  transparent;
+}
+
+element {
+    padding:        4px 10px;
+    spacing:        18px;
+    border-radius:  @radius;
+}
+
+element selected normal, element selected active {
+    background-color:  @bg3;
+}
+
+element-icon {
+    size:            @icons;
+    vertical-align:  0.5;
+}
+
+element-text {
+    margin:        6px 0;
+    //text-color:  inherit;
+}
+
+element normal active {
+    //text-color:  @bg3;
+}
+
+prompt {
+    //text-color:  @fg2;
+}

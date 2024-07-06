@@ -1,0 +1,78 @@
+## https://docs.helix-editor.com/configuration.html
+
+theme = "transparent"
+
+[editor]
+mouse = true
+scrolloff = 5
+idle-timeout = 0
+completion-trigger-len = 1
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+#  max-depth = 1
+
+[editor.search]
+smart-case = true
+wrap-around = true
+
+[keys.normal]
+i = "move_line_up"
+k = "move_line_down"
+j = "move_char_left"
+l = "move_char_right"
+h = "insert_mode"
+D = "delete_selection_noyank"
+'A-/' = "toggle_comments"
+C-r = "redo"
+A-w = ":quit!"
+A-p = "file_picker"
+g = { G = "goto_file_end" }
+tab = "indent"
+S-tab = "unindent"
+space = { f = { s = ":write" } }
+'\' = "shell_pipe"
+';' = "command_mode"
+A-F = "global_search"
+A-s = ":vsplit"
+A-u = ":hsplit"
+
+C-i = "page_up"
+C-k = "page_down"
+
+# Splits
+A-i = "jump_view_up"
+A-k = "jump_view_down"
+A-j = "jump_view_left"
+A-l = "jump_view_right"
+
+[keys.normal.Z]
+Z = ":write-quit"
+Q = ":quit!"
+
+[keys.insert]
+tab = "indent"
+S-tab = "unindent"
+j = { k = "normal_mode" }
+A-i = "move_line_up"
+A-k = "move_line_down"
+A-j = "move_char_left"
+A-l = "move_char_right"
+
+[keys.select]
+i = "extend_line_up"
+k = "extend_line_down"
+j = "extend_char_left"
+l = "extend_char_right"
+esc = [ "exit_select_mode", "collapse_selection" ]
+
+#  [keys.window]
+#  A-i = "move_line_up"
+#  A-k = "move_line_down"
+#  A-j = "move_char_left"
+#  A-l = "move_char_right"

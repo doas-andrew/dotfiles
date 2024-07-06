@@ -1,0 +1,15 @@
+configuration {
+    show-icons:          true;
+    modi:                "drun";
+    drun-display-format: "{name}";
+
+    // Keybinds
+    kb-remove-line-back: "Ctrl-BackSpace";
+    kb-remove-word-back: "Alt-BackSpace";
+    kb-row-up: "Up,Alt-i";
+    kb-row-down: "Down,Alt-k";
+}
+
+// @theme "~/.config/rofi/themes/windows11-grid-dark"
+@theme "~/.config/rofi/themes/rounded-gray-dark"
+// @theme "~/.config/rofi/themes/rounded-nord"

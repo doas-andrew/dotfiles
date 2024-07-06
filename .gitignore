@@ -1,0 +1,7 @@
+# MacOS Desktop Services Store files
+.DS_Store
+
+# Emacs backup files
+*~
+
+/zsh/zsh-autosuggestions/

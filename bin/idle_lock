@@ -1,0 +1,14 @@
+#!/bin/sh
+
+[ "$1" -lt 300 ] && set -- 600 $2
+[ "$2" -lt 600 ] && set -- $1 1200
+
+xidlehook \
+    --not-when-audio \
+    --not-when-fullscreen \
+    --timer $1 'lock_screen' '' \
+    --timer $2 'systemctl suspend' ''
+
+# [ -n "$1" ] && lock="--timer $1 'lock_screen' ''"
+# [ -n "$2" ] && sleep="--timer $2 'systemctl suspend' ''"
+# xidlehook --not-when-audio --not-when-fullscreen $lock $sleep

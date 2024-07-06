@@ -1,0 +1,7 @@
+# https://github.com/helix-editor/helix/blob/master/languages.toml
+[[language]]
+name = "go" # gopls
+auto-format = true
+
+[[language]]
+name = "ruby" # solargraph

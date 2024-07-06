@@ -1,0 +1,78 @@
+matches:
+  - trigger: ;email
+    replace: email@e.mail
+
+  - trigger: ;date
+    replace: "{{var}}"
+    vars:
+      - name: var
+        type: date
+        params:
+          format: "%Y/%m/%d"
+
+  - trigger: ;time
+    replace: "{{var}}"
+    vars:
+    - name: var
+      type: date
+      params:
+        format: "%H:%M"
+
+  - trigger: ;timestamp
+    replace: "{{var}}"
+    vars:
+    - name: var
+      type: date
+      params:
+        format: "%Y/%m/%d %H:%M"
+
+  # Get public IP address
+  - trigger: ;ip
+    replace: "{{result}}"
+    vars:
+      - name: result
+        type: shell
+        params:
+          cmd: curl 'https://api.ipify.org'
+
+  # Get weather for your location
+  - trigger: ;weather
+    replace: "{{result}}"
+    vars:
+      - name: result
+        type: shell
+        params:
+          cmd: curl 'http://wttr.in/?format=3'
+
+  # Markdown - collapsable section
+  - trigger: ;md-collapse
+    replace: "\n<details>\n\t<summary>$|$</summary>\n\t<p></p>\n</details>"
+
+  # Outputs markdown link, with clipboard contents as the URL
+  - trigger: ;md-link
+    replace: "[$|$]({{clipboard}})"
+    vars:
+    - name: clipboard
+      type: clipboard
+
+  - trigger: ;shrug
+    replace: ¯\_('_')_/¯
+
+  - trigger: ;smile
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: choice
+        params:
+          values:
+            - '¯\\_(ツ)_/¯'
+            - '(╯°□°）╯︵ ┻━┻'
+            - '( ͡ಠ ʖ̯ ͡ಠ)'
+            - '☉ ‿ ⚆'
+            - 'ʕ•ᴥ•ʔ'
+            - '⋆｡˚ ☁︎ ˚｡⋆｡˚☽˚｡⋆'
+            - '◤◢◣◥◤◢◣◥'
+            - '(づᵔ◡ᵔ)づ'
+            - '|ᵔ‿ᵔ|'
+            - '⤜(*﹏*)⤏'
+            - 'ツ'
