@@ -62,7 +62,7 @@ theme.wibar.task_icons.margin = {
 -- Notifications
 --------------------------------------------------------------------------------
 
-theme.notification_font = 'MesloLG M 12'
+theme.notification_font = 'MesloLGL Nerd Font Propo 12'
 theme.notification_icon_size = 64;
 
 

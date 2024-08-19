@@ -1,0 +1,28 @@
+[manager]
+prepend_keymap = [
+	{ on = [ "i" ], run = "arrow -1" },
+	{ on = [ "k" ], run = "arrow 1" },
+	{ on = [ "I" ], run = "arrow -5" },
+	{ on = [ "K" ], run = "arrow 5" },
+
+	{ on = [ "j" ], run = "leave" },
+	{ on = [ "l" ], run = "enter" },
+	{ on = [ "J" ], run = "back" },
+	{ on = [ "L" ], run = "forward" },
+]
+
+[select]
+prepend_keymap = [
+	{ on = [ "i" ], run = "arrow -1" },
+	{ on = [ "k" ], run = "arrow 1" },
+	{ on = [ "I" ], run = "arrow -5" },
+	{ on = [ "K" ], run = "arrow 5" },
+]
+
+[help]
+prepend_keymap = [
+	{ on = [ "i" ], run = "arrow -1" },
+	{ on = [ "k" ], run = "arrow 1" },
+	{ on = [ "I" ], run = "arrow -5" },
+	{ on = [ "K" ], run = "arrow 5" },
+]

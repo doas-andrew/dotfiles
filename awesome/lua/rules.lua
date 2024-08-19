@@ -68,6 +68,7 @@ awful.rules.rules = {
         rule_any = {
             class = {
                 "Alacritty",
+                "org.wezfurlong.wezterm",
                 "neovide",
                 "Sublime_text",
             },

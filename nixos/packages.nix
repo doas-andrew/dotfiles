@@ -92,7 +92,6 @@
         bat-extras.batwatch
         bat-extras.prettybat
         bottom                     # System monitor (btm)
-        cava                       # Audio Visualizer for Alsa
         cbonsai                    # Grow bonsai trees in your terminal
         cowsay                     # Generates ASCII cow saying something
         croc                       # File transfer CLI (ala magic wormhole)
@@ -110,7 +109,6 @@
         htop                       # System monitor
         jq                         # JSON parser
         killall                    # Kill many processes by name or list of PIDs
-        lf                         # Terminal-based file browser, ala Ranger
         lsix                       # Shows thumbnails in terminal using sixel graphics
         mediainfo                  # Gets tag information about a video or audio file
         mpd                        # music player daemon
@@ -122,45 +120,43 @@
         restic                     # Incremental backup
         ripgrep                    # Rusted grep
         rsync                      # Sync file directories
+        sd                         # Rusted sed
         tmux                       # Terminal multiplexer
         tokei                      # Display statistics for a given repository
         unzip                      # Extract .zip archives
+        wezterm                    # Terminal configured with Lua
         wget                       # HTTP request CLI
+        yazi                       # Terminal-based file browser
         yt-dlp                     # Archive videos
 
       ## Dependencies
         ffmpegthumbnailer          # Video thumbnailer
-        gnumake                    # Required by nvim telescope-fzf-native
-        # llvmPackages_9.libcxxClang # Required by nvim telescope-fzf-native
+        gnumake                    # Required to build nvim telescope-fzf-native
         openssl                    # Implements SSL and TLS
         openvpn                    # Required by novpn; Secure VPN tunneling protocol
-        ueberzug                   # Required by lf; Render image thumbnails
         slop                       # Required by Screenkey
         xclip                      # Required by Neovim; Syncs vim and system clipboards
 
       ## Ignore
+        # cava                       # Audio Visualizer for Alsa
         # clipcat                    # Rusted clipboard manager. No images
+        # discord                    # VOIP and chat
         # dutree                     # Rusted du
         # espanso                    # Text expansion
-        # haskellPackages.greenclip  # Clipboard manager. Supports images!
         # kolourpaint                # Qt paint
         # krita                      # FOSS photoshop
-        # discord                    # VOIP and chat
+        # lf                         # Terminal-based file browser
+        # ueberzug                   # Required by lf; Render image thumbnails
     ];
 
     fonts.packages = with pkgs; [
         # Don't pull in every nerdfont
         # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts
         (nerdfonts.override { fonts = [
-            "Go-Mono"
             "FiraCode"
-            "Mononoki"
+            "Go-Mono"
+            "Meslo"
             "Noto"
-            "SourceCodePro"
         ];})
-
-        alegreya-sans  # Humanist sans serif family with a calligraphic feeling
-        meslo-lg       # Meslo, customized version of Apple's Menlo-Regular
-        meslo-lgs-nf   # Meslo Nerd Font patched for Powerlevel10k
     ];
 }

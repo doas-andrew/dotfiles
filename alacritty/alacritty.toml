@@ -10,32 +10,16 @@ unfocused_hollow = true
 size = 11.5
 
 [font.normal]
-family = "MesloLGS NF"
+family = "MesloLGL Nerd Font Mono"
 
-[[keyboard.bindings]]
-action = "Paste"
-key = "V"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "IncreaseFontSize"
-key = "Equals"
-mods = "Alt"
-
-[[keyboard.bindings]]
-action = "DecreaseFontSize"
-key = "Minus"
-mods = "Alt"
-
-[[keyboard.bindings]]
-action = "ResetFontSize"
-key = "Key0"
-mods = "Alt"
-
-[[keyboard.bindings]]
-action = "ToggleFullscreen"
-key = "F11"
-mods = "None"
+[keyboard]
+bindings = [
+    { mods = "Alt",     key = "Key0",   action = "ResetFontSize" },
+    { mods = "Alt",     key = "Equals", action = "IncreaseFontSize" },
+    { mods = "Alt",     key = "Minus",  action = "DecreaseFontSize" },
+    { mods = "Control", key = "V",      action = "Paste" },
+    { mods = "None",    key = "F11",    action = "ToggleFullscreen" },
+]
 
 [selection]
 save_to_clipboard = true

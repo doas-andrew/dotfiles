@@ -1,3 +1,0 @@
-#!/bin/sh
-case "$(file --dereference --brief --mime-type -- "$1")" in
-esac

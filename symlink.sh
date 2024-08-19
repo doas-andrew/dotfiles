@@ -1,11 +1,9 @@
-dotfiles="$HOME/dotfiles"
-# MY_OS=$(cat /etc/os-release | head -n 1 | cut -d '=' -f2)
+dotfiles="$(cd "$(dirname "$0")" && pwd -P)"
 
 if [ $MY_OS = 'NixOS' ]; then
     sudo ln -sfn $dotfiles/nixos/configuration.nix /etc/nixos/configuration.nix
 fi
 
-mkdir -p ~/go
 mkdir -p ~/.config
 mkdir -p ~/.local/share
 mkdir -p ~/.local/bin
@@ -23,23 +21,19 @@ if type espanso;    then ln -sfn $dotfiles/espanso                   ~/.config/e
 if type greenclip;  then ln -sfn $dotfiles/greenclip/greenclip.toml  ~/.config/greenclip.toml;  fi
 if type hx;         then ln -sfn $dotfiles/helix                     ~/.config/helix;           fi
 if type less;       then ln -sfn $dotfiles/less/.lesskey             ~/.lesskey;                fi
-if type lf;         then ln -sfn $dotfiles/lf                        ~/.config/lf;              fi
 if type mpd;        then ln -sfn $dotfiles/mpd                       ~/.config/mpd;             fi
 if type mpv;        then ln -sfn $dotfiles/mpv                       ~/.config/mpv;             fi
 if type nvim;       then ln -sfn $dotfiles/nvim                      ~/.config/nvim;            fi
 if type pcmanfm;    then ln -sfn $dotfiles/pcmanfm                   ~/.config/pcmanfm;         fi
 if type rofi;       then ln -sfn $dotfiles/rofi                      ~/.config/rofi;            fi
 if type tmux;       then ln -sfn $dotfiles/tmux                      ~/.config/tmux;            fi
+if type wezterm;    then ln -sfn $dotfiles/wezterm                   ~/.config/wezterm;         fi
 if type xmodmap;    then ln -sfn $dotfiles/x/Xmodmap                 ~/.Xmodmap;                fi
+if type yazi;       then ln -sfn $dotfiles/yazi                      ~/.config/yazi;            fi
 
 if type emacs; then
     mkdir -p ~/.config/emacs
     ln -sfn $dotfiles/emacs/init.el ~/.config/emacs/init.el
-fi
-
-if type subl; then
-    mkdir -p ~/.config/sublime-text/Packages
-    ln -sfn $dotfiles/sublime ~/.config/sublime-text/Packages/User
 fi
 
 if type zsh; then

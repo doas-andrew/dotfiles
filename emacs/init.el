@@ -110,9 +110,7 @@
     window-combination-resize t             ;;; Resize windows proportionally
     x-stretch-cursor t)                     ;;; Stretch cursor to the glyph width
 
-    (set-frame-font "MesloLGS NF-12" nil t)
-    ;; (set-frame-font "MesloLGS NF-13" nil t)
-    ;; (set-frame-font "Hack Nerd Font Mono-13" nil t)
+    (set-frame-font "MesloLGL Nerd Font Mono-12" nil t)
 
     (desktop-save-mode t)                   ;;; Offer to save desktop/workspace on exit; M-x: desktop-save; M-x: desktop-read
     (global-linum-mode t)                   ;;; Show line numbers
