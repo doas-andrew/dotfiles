@@ -13,6 +13,7 @@ mkdir -p ~/.ssh && cp -n $dotfiles/ssh/config-example ~/.ssh/config
 ln -sfn $dotfiles/bin/* ~/.local/bin
 
 if type alacritty;  then ln -sfn $dotfiles/alacritty                 ~/.config/alacritty;       fi
+if type bat;        then ln -sfn $dotfiles/bat                       ~/.config/bat;             fi
 if type clipcatd;   then ln -sfn $dotfiles/clipcat                   ~/.config/clipcat;         fi
 if type conky;      then ln -sfn $dotfiles/conky                     ~/.config/conky;           fi
 if type doas;       then sudo ln -sfn $dotfiles/doas/doas.conf        /etc/doas.conf;           fi

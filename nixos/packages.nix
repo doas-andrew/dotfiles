@@ -47,7 +47,6 @@
 
     environment.systemPackages = with pkgs; [
       ## Dev
-        lua-language-server        # Neovim, AWM
         neovim                     # New vim with Lua-based configs
         neovide                    # Neovim GUI
         ngrok                      # Expose localhost ports (safely?)
@@ -130,6 +129,7 @@
         yt-dlp                     # Archive videos
 
       ## Dependencies
+        delta                      # Used by batdiff
         ffmpegthumbnailer          # Video thumbnailer
         gnumake                    # Required to build nvim telescope-fzf-native
         openssl                    # Implements SSL and TLS
@@ -146,6 +146,7 @@
         # kolourpaint                # Qt paint
         # krita                      # FOSS photoshop
         # lf                         # Terminal-based file browser
+        # lua-language-server        # Neovim, AWM
         # ueberzug                   # Required by lf; Render image thumbnails
     ];
 

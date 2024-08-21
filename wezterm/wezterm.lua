@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
+local keys = require 'keys'
 local fn = require 'library'
 local act = wezterm.action
-local acb = wezterm.action_callback
 local config = {}
 
 -- Newer versions of wezterm use config_builder,
@@ -10,19 +10,26 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
+-- Environment
 config.set_environment_variables = {
     MY_WEZTERM_INDICATOR = '1'
 }
 
+-- Font
+config.font = wezterm.font 'MesloLGL Nerd Font Mono'
+config.warn_about_missing_glyphs = false
+config.font_size = 12
+config.line_height = 1
+
+-- Keys
+local defaults = wezterm.gui.default_key_tables()
+config.leader = keys.leader
+config.keys = keys.keys
+config.key_tables = {
+    copy_mode = fn.append(defaults.copy_mode , keys.key_tables.copy_mode)
+}
+
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = 'Gruvbox dark, medium (base16)'
-
---- Monokai Pro
--- config.color_scheme = 'Monokai Pro (Gogh)'
--- config.colors = { background = '#2D2A2E' }
--- config.colors = { background = '#282A3A' }
-
--- Kanagawa
 config.color_scheme = 'Kanagawa (Gogh)'
 config.colors = {
     selection_bg = '#2D4F67',
@@ -44,10 +51,6 @@ config.colors = {
     },
 }
 
--- config.font = wezterm.font 'MesloLGL Nerd Font Mono'
-config.font_size = 12
-config.line_height = 1
-
 -- tab bar
 config.hide_tab_bar_if_only_one_tab = true
 config.tab_bar_at_bottom = true
@@ -63,135 +66,8 @@ config.window_padding = {
   top    = 10,
   bottom =  0,
 }
-config.leader = {
-    mods = 'ALT',
-    key = 'q',
-    timeout_milliseconds = 2000,
-}
--- https://wezfurlong.org/wezterm/config/lua/keyassignment/index.html
-config.keys = {
-    fn.ignore_editor {
-        mods = 'ALT', key = 's',
-        action = act.SplitHorizontal { domain = 'CurrentPaneDomain' }
-    },
-    fn.ignore_editor {
-        mods = 'ALT', key = 'u',
-        action = act.SplitVertical { domain = 'CurrentPaneDomain' }
-    },
-    fn.ignore_editor {
-        mods = 'ALT', key = 'i',
-        action = act.ActivatePaneDirection 'Up'
-    },
-    fn.ignore_editor {
-        mods = 'ALT', key = 'k',
-        action = act.ActivatePaneDirection 'Down'
-    },
-    fn.ignore_editor {
-        mods = 'ALT', key = 'j',
-        action = act.ActivatePaneDirection 'Left'
-    },
-    fn.ignore_editor {
-        mods = 'ALT', key = 'l',
-        action = act.ActivatePaneDirection 'Right'
-    },
-    fn.ignore_editor {
-        mods = 'ALT', key = 'J',
-        action = act.MoveTabRelative(-1)
-    },
-    fn.ignore_editor {
-        mods = 'ALT', key = 'L',
-        action = act.MoveTabRelative(1)
-    },
-    fn.editor_only {
-        mods = 'CTRL', key = 'i',
-        action = act.Multiple {
-            act.SendKey { mods = 'CTRL', key = 'b' },
-            act.SendKey { key = 'i' },
-        },
-    },
-    {
-        mods = 'CTRL', key = 't',
-        action = act.SpawnTab('CurrentPaneDomain'),
-    },
-    fn.ignore_editor {
-        mods = 'CTRL', key = 'j',
-        action = act.ActivateTabRelative(-1)
-    },
-    fn.ignore_editor {
-        mods = 'CTRL', key = 'l',
-        action = act.ActivateTabRelative(1)
-    },
-    fn.ignore_editor {
-        mods = 'CTRL', key = 'v',
-        action = act.PasteFrom 'Clipboard'
-    },
-    fn.ignore_editor {
-        mods = 'SHIFT', key = 'LeftArrow',
-        action = act.AdjustPaneSize { 'Left', 5 }
-    },
-    fn.ignore_editor {
-        mods = 'SHIFT', key = 'RightArrow',
-        action = act.AdjustPaneSize { 'Right', 5 }
-    },
-    fn.ignore_editor {
-        mods = 'SHIFT', key = 'DownArrow',
-        action = act.AdjustPaneSize { 'Down', 5 }
-    },
-    fn.ignore_editor {
-        mods = 'SHIFT', key = 'UpArrow',
-        action = act.AdjustPaneSize { 'Up', 5 }
-    },
-    {
-        mods = 'LEADER', key = 'd',
-        action = act.ShowDebugOverlay
-    },
-    {
-        mods = 'LEADER', key = 'i',
-        action = acb(function(win, pane)
-            -- tail -f $XDG_RUNTIME_DIR/wezterm/wezterm-gui-log-
-            wezterm.log_info(
-                '\nWindowID:', win:window_id(),
-                '\nPaneID:', pane:pane_id(),
-                '\nMuxTab:', pane:tab()
-            )
-        end),
-    },
-    {
-        mods = 'LEADER', key = 'p',
-        action = act.ActivateCommandPalette
-    },
-    {
-        mods = 'LEADER', key = 'x',
-        action = act.CloseCurrentPane { confirm = true }
-    },
-    {
-        mods = 'LEADER|ALT', key = 's',
-        action = act.SplitHorizontal { domain = 'CurrentPaneDomain' }
-    },
-    {
-        mods = 'LEADER|ALT', key = 'u',
-        action = act.SplitVertical { domain = 'CurrentPaneDomain' }
-    },
-    {
-        mods = 'LEADER|CTRL', key = 'j',
-        action = act.ActivateTabRelative(-1)
-    },
-    {
-        mods = 'LEADER|CTRL', key = 'l',
-        action = act.ActivateTabRelative(1)
-    },
-}
 
-config.key_tables = {
-    copy_mode_temp = {
-        {
-            key = 'w',
-            action = act.CopyMode 'MoveForwardWord'
-        },
-    },
-}
-
--- leader + number to activate that tab
+-- alt + number to activate that tab
 for i = 0, 9 do
     table.insert(config.keys, {
         key = tostring(i),

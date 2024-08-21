@@ -3,6 +3,29 @@ local act = wezterm.action
 local acb = wezterm.action_callback
 local M = {}
 
+function M.append(target, tab)
+    for _, value in ipairs(tab) do
+        table.insert(target, value)
+    end
+    return target
+end
+
+function M.copy(tab)
+    local new = {}
+    for key, value in pairs(tab) do
+        new[key] = value
+    end
+    return new
+end
+
+function M.merge(target, tab)
+    -- local new = M.copy(target)
+    for key, value in pairs(tab) do
+        target[key] = value
+    end
+    return target
+end
+
 function M.basename(s)
   return string.gsub(s, '(.*[/\\])(.*)', '%2')
 end

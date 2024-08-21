@@ -18,6 +18,7 @@ alias emacs='emacs --no-window-system'
 alias fdir='fd -t=d'
 alias ll='eza -alh'
 alias ls='eza -a'
+alias lsm='eza -alhr --sort modified'
 alias man='batman'
 alias open="$FILE_MANAGER &"
 alias pip='pipenv'
