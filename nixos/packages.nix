@@ -157,7 +157,7 @@
             "FiraCode"
             "Go-Mono"
             "Meslo"
-            "Noto"
+            "NerdFontsSymbolsOnly"
         ];})
     ];
 }

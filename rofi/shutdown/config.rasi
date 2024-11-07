@@ -5,16 +5,10 @@ configuration {
     kb-row-down:          "Right,l,d,Alt-l";
 }
 
-@theme "gruvbox-dark"
-
-* {
-    alternate-normal-background: #282828;
-    selected-normal-background: #504945;
-    selected-normal-foreground: #8ec07c;
-}
+@theme "rounded-nord"
 
 window {
-    width: 447px;
+    width: 455px;
 }
 
 mainbox {
@@ -24,8 +18,6 @@ mainbox {
 listview {
     cycle: false;
     layout: horizontal;
-    border: none;
-    padding: 0;
 }
 
 element {

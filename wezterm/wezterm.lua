@@ -18,7 +18,7 @@ config.set_environment_variables = {
 -- Font
 config.font = wezterm.font 'MesloLGL Nerd Font Mono'
 config.warn_about_missing_glyphs = false
-config.font_size = 12
+config.font_size = 11
 config.line_height = 1
 
 -- Keys

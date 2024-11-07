@@ -1,6 +1,6 @@
 local M = {}
 
-function M.next_full(c)  fn.next_x(c, 1, true) end
+function M.next_full(c)  fn.next_x(c, 1, false) end
 function M.next_half(c)  fn.next_x(c, 2, true) end
 function M.next_third(c) fn.next_x(c, 3, true) end
 
@@ -28,10 +28,11 @@ function M.next_x(c, div, jump, recurse)
     else
         if c.x > g.last_x then
             if jump then
-                local temp = c.screen
-                c:move_to_screen()
-                if c.screen ~= temp then
-                    return fn.next_x(c, div, jump, true)
+                local next_screen = screen[c.screen.index + 1] or screen[1]
+
+                if next_screen ~= c.screen then
+                    c:move_to_screen(next_screen)
+                    g = fn.next_x_geometry(c, div)
                 end
             end
             c.x = g.start_x
@@ -51,9 +52,9 @@ function M.next_x_geometry(c, div)
     local width = math.floor((s.width - sp.left - sp.right - gaps - (bw * div)) / div)
     return {
         width = width,
-        start_x = sp.left + gap,
+        start_x = s.x + sp.left + gap,
         next_x = width + bw + gap,
-        last_x = (width * (div-2)) + bw + sp.left + gaps,
+        last_x = s.x + (width * (div-2)) + bw + sp.left + gaps,
         y = wi + gap + sp.top,
         height = s.height - wi - (gap * 2) - bw - sp.top - sp.bottom,
     }

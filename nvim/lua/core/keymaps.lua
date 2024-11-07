@@ -211,6 +211,7 @@ nmap("q", "b")
 nmap("Q", "B")
 
 nmap("H", "^i")
+vmap("H", "^i")
 
 -- Traverse word-wrapped lines as separate lines
 map("i", "gk")

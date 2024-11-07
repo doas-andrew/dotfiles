@@ -22,11 +22,12 @@ screen.connect_signal("property::geometry", fn.set_wallpaper)
 
 
 --------------------------------------------------------------------------------
--- Reset wallpaper when a screen's geometry changes (ie different resolution)
+-- Focus client on mouse hover
 
 if my.focus_mouse then
     client.connect_signal("mouse::enter", function(c)
-        c:emit_signal("request::activate", "mouse_enter", {raise = false})
+        -- c:emit_signal("request::activate", "mouse_enter", {raise = false})
+        c:emit_signal("request::activate")
     end)
 end
 
@@ -138,3 +139,17 @@ client.connect_signal("request::titlebars", function(c)
         },
     }
 end)
+
+
+--------------------------------------------------------------------------------
+-- Show system tray only on active screen's wibar
+
+local last = awful.screen.focused()
+
+client.connect_signal("focus", function(c)
+    if last ~= c.screen then
+        last = c.screen
+        wibox.widget.systray():set_screen(c.screen)
+    end
+end)
+

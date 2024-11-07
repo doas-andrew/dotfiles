@@ -27,6 +27,7 @@ inputbar {
 
     //spacing:           800px;
     padding:           8px 16px;
+    margin:            0 0 12px;
 
     border:            1px;
     border-radius:     @radius;
@@ -53,7 +54,6 @@ textbox {
 
 listview {
     lines:             8;
-    margin:            12px 0 0;
     columns:           1;
     fixed-height:      true;
     background-color:  transparent;

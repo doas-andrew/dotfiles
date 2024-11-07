@@ -2,14 +2,13 @@
 
 # uptime="$(uptime | awk -F '(:| |,)' '{print $9 " hours, " $10 " minutes"}')"
 
-shutdown="襤"
-lock=""
-reboot="累"
-snooze="鈴"
-leave=""
+shutdown="󰐥" # \Uf0425
+lock="󰌾"     # \Uf033e
+reboot="󰜉"   # \Uf0709
+snooze="󰒲"   # \Uf04b2
+leave="󰍃"    # \Uf0343
 options="$lock\n$shutdown\n$reboot\n$snooze\n$leave"
-
-rofi=$(printf $options | rofi -config ~/.config/rofi/shutdown/config.rasi -dmenu)
+rofi=$(printf $options | rofi -config ~/.config/rofi/shutdown/config.rasi -dmenu -monitor -2)
 
 case $rofi in
     $lock)

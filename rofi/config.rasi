@@ -11,5 +11,5 @@ configuration {
 }
 
 // @theme "~/.config/rofi/themes/windows11-grid-dark"
-@theme "~/.config/rofi/themes/rounded-gray-dark"
-// @theme "~/.config/rofi/themes/rounded-nord"
+// @theme "~/.config/rofi/themes/rounded-gray-dark"
+@theme "~/.config/rofi/themes/rounded-nord"

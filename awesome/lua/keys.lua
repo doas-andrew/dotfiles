@@ -2,7 +2,7 @@ local launch_cmd = nil
 local clip_cmd = nil
 
 if my.launcher == "rofi" then
-    launch_cmd = "rofi -show drun"
+    launch_cmd = "rofi -show drun -monitor -2"
 elseif my.launcher == "ulauncher" then
     launch_cmd = "ulauncher-toggle"
 end
@@ -239,7 +239,7 @@ _G.ClientKeys = gears.table.join(
 
     , awful.key({ metakey, "Shift" }, "a",
         function(c)
-            fn.next_x(c, 1, true)
+            fn.next_full(c)
         end,
         { description = "Add space around", group = "client" })
 
@@ -268,18 +268,18 @@ _G.ClientKeys = gears.table.join(
 
     , awful.key({ metakey }, "i",
         function(c)
+            fn.dump(c:geometry())
             fn.dump {
                 type = c.type,
                 role = c.role,
                 class = c.class,
+                screen = c.screen,
                 instance = c.instance,
                 floating = c.floating,
                 ontop = c.ontop,
-                width = c.width,
-                height = c.height,
+                maximized = c.maximized,
                 max_vert = c.maximized_vertical,
                 max_horz = c.maximized_horizontal,
-                maximized = c.maximized,
             }
         end,
         { description = "Window Info", group = "client" })
