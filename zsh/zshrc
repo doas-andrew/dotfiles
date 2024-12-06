@@ -106,4 +106,4 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # eval "$(direnv hook zsh)"
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-eval "$(mise activate zsh)"
+which mise >/dev/null && eval "$(mise activate zsh)"

@@ -54,18 +54,11 @@ end
 -- Wibox
 
 client.connect_signal("focus", function(c)
-    --  fn.dump(c.class.." focused")
-
     c.screen.mywibox.ontop = not c.fullscreen
 end)
 
 client.connect_signal("unfocus", function(c)
-    --  fn.dump(c.class.." UNfocused")
-
-    if theme.useless_gap > 0 and
-        c.screen.selected_tag and
-        not fn.s_floating(c)
-    then
+    if not fn.s_floating(c) then
         c.maximized = false
         c.fullscreen = false
     end
@@ -99,6 +92,17 @@ client.connect_signal("unmanage", function(c)
     if c.maximized or c.fullscreen then
         fn.track_defloat(c.screen, false)
     end
+end)
+
+client.connect_signal("property::screen", function(c)
+    if c.myLastScreen
+        and c.myLastScreen ~= c.screen
+        and (c.maximized or c.fullscreen)
+    then
+        fn.track_defloat(c.myLastScreen, false)
+        fn.track_defloat(c.screen, true)
+    end
+    c.myLastScreen = c.screen
 end)
 
 
