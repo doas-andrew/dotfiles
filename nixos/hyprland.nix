@@ -20,7 +20,7 @@
         pcmanfm
         swayidle
         swww
-        transmission-gtk
+        transmission_4-gtk
         udiskie
         wl-clipboard
         wofi

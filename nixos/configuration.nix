@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-    system.stateVersion = "24.05";
+    system.stateVersion = "24.11";
     # To upgrade:
     #   sudo nix-channel --add https://nixos.org/channels/nixos-XX.XX nixos
     #   sudo nix-channel --update
@@ -41,10 +41,9 @@
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = false;
 
-    # Sound
-    sound.enable = true;
-    hardware.pulseaudio.enable = true;
-    hardware.pulseaudio.systemWide = false;
+    # Audio
+    security.rtkit.enable = true;
+    services.pipewire.enable = true;
 
     # Flakes
     # nix.settings.experimental-features = [ "nix-command" "flakes" ];

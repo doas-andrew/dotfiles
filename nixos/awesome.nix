@@ -28,14 +28,15 @@
     environment.systemPackages = with pkgs; [
         alttab
         ark
+        autorandr
         font-manager
         i3lock
         lxappearance
+        pasystray
         pavucontrol
         pcmanfm
-        transmission-gtk
+        transmission_4-gtk
         udiskie
-        volctl
         xidlehook
         xorg.xmodmap
     ];

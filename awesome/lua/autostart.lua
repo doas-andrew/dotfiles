@@ -5,7 +5,7 @@ local autostart = {
     "setxkbmap -option caps:swapescape",
     "pgrep --euid $USER alttab         || alttab -w 1 -d 2 -vertical -fg '#ebdbb2' -bg '#282828' -frame '#689d6a' -i 32x32 -t 500x32",
     "pgrep --euid $USER blueman-applet || blueman-applet",
-    "pgrep --euid $USER volctl         || volctl",
+    "pgrep --euid $USER pasystray      || pasystray",
 }
 
  if my.lock_delay or my.sleep_delay then

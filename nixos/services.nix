@@ -16,8 +16,7 @@
     systemd.services.docker.wantedBy = [];
 
     # Text expansion
-    # broken on 24.05
-    # services.espanso.enable = true;
+    services.espanso.enable = true;
 
     # Provides location information
     # services.geoclue2.enable = true;
