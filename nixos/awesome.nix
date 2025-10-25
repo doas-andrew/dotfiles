@@ -27,10 +27,10 @@
 
     environment.systemPackages = with pkgs; [
         alttab
-        ark
         autorandr
         font-manager
         i3lock
+        kdePackages.ark
         lxappearance
         pasystray
         pavucontrol

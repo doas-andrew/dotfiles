@@ -137,6 +137,12 @@
         slop                       # Required by Screenkey
         xclip                      # Required by Neovim; Syncs vim and system clipboards
 
+      ## Fonts
+        nerd-fonts.fira-code
+        nerd-fonts.go-mono
+        nerd-fonts.meslo-lg
+        nerd-fonts.symbols-only
+
       ## Ignore
         # cava                       # Audio Visualizer for Alsa
         # clipcat                    # Rusted clipboard manager. No images
@@ -148,16 +154,5 @@
         # lf                         # Terminal-based file browser
         # lua-language-server        # Neovim, AWM
         # ueberzug                   # Required by lf; Render image thumbnails
-    ];
-
-    fonts.packages = with pkgs; [
-        # Don't pull in every nerdfont
-        # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts
-        (nerdfonts.override { fonts = [
-            "FiraCode"
-            "Go-Mono"
-            "Meslo"
-            "NerdFontsSymbolsOnly"
-        ];})
     ];
 }
