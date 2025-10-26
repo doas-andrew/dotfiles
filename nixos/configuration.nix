@@ -53,5 +53,4 @@
     environment.sessionVariables.EDITOR = "nvim";
     environment.sessionVariables.GOPATH = "$HOME/go";
     environment.sessionVariables.GOPROXY = "direct";
-    environment.sessionVariables.PGDATA = "$HOME/postgres";
 }

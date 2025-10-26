@@ -11,18 +11,18 @@
     programs.waybar.enable = true;
 
     environment.systemPackages = with pkgs; [
-        ark
-        cliphist
-        font-manager
-        hyprpaper
-        hyprpicker
-        pavucontrol
-        pcmanfm
-        swayidle
-        swww
-        transmission_4-gtk
-        udiskie
-        wl-clipboard
-        wofi
+        cliphist              # Clipboard manager
+        font-manager          # Browse installed fonts
+        hyprpaper             # Wallpaper utilities
+        hyprpicker            # Color sampler
+        kdePackages.ark       # File archiver
+        pavucontrol           # PulseAudio Volume Control
+        pcmanfm               # GTK file manager
+        swayidle              # Idle management daemon
+        swww                  # Animated wallpaper daemon
+        tela-icon-theme       # GTK icon theme
+        transmission_4-gtk    # BitTorrent client
+        wl-clipboard          # Copy/paste utilities
+        wofi                  # Scriptable menu program
     ];
 }

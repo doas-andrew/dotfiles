@@ -7,10 +7,6 @@
     services.clamav.daemon.enable = false;
     services.clamav.updater.enable = false;
 
-    # Clipboard history
-    services.clipcat.enable = false;
-    services.greenclip.enable = true;
-
     # Docker
     virtualisation.docker.enable = true;
     systemd.services.docker.wantedBy = [];
@@ -19,7 +15,7 @@
     services.espanso.enable = true;
 
     # Provides location information
-    # services.geoclue2.enable = true;
+    services.geoclue2.enable = false;
 
     # VPN
     services.mullvad-vpn.enable = true;

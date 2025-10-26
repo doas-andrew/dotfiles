@@ -18,7 +18,6 @@
         # User-specific packages
         packages = with pkgs;[
             cool-retro-term  # Mimics cathode display
-            prismlauncher    # Minecraft launcher
         ];
     };
 
@@ -49,37 +48,26 @@
       ## Dev
         neovim                     # New vim with Lua-based configs
         neovide                    # Neovim GUI
-        ngrok                      # Expose localhost ports (safely?)
         vscode                     # OSS editor by Microsoft
         vscodium                   # VScode minus the telemetry
 
       ## GUIs
         calibre                    # Epub reader
         dbeaver-bin                # SQL editor
-        emacs                      # Fully extensible text editor; eLisp interpreter
+        emacs                      # Fully extensible text editor
         firefox                    # Gecko browser
         flameshot                  # Screen capture tool
-        gparted                    # GUI system partition editor
-        gpick                      # Color sampler
+        gparted                    # System partition editor
         kazam                      # Simple screen recording
         keepassxc                  # Password management
         mpv                        # mpv plays video
-        obsidian                   # Trusted system
+        obsidian                   # Personal knowledge base
         qalculate-qt               # Qt calculator
         qview                      # Qt image viewer
         screenkey                  # Screencast your keys
         sublime4                   # Notepad replacement
         tauon                      # Music player
-        yacreader                  # Comic/manga reader
-        ymuse                      # mpd gui
         zathura                    # PDF reader
-
-      ## UI-related
-        conky                      # Display system information on the desktop
-        dunst                      # Notification daemon
-        redshift                   # Adjusts the display's color temperature
-        rofi                       # Window switcher, run dialog and dmenu replacement
-        tela-icon-theme            # GTK icon theme
 
       ## Utilities
         alacritty                  # GPU-accelerated terminal
@@ -99,7 +87,6 @@
         eza                        # Rusted ls
         fd                         # Rusted find
         ffmpeg                     # Audio conversion tool
-        file                       # Get MIME types
         fortune                    # Pseudorandom quote
         fzf                        # Fuzzy search
         git                        # Version control
@@ -109,12 +96,10 @@
         jq                         # JSON parser
         killall                    # Kill many processes by name or list of PIDs
         lsix                       # Shows thumbnails in terminal using sixel graphics
-        mediainfo                  # Gets tag information about a video or audio file
-        mpd                        # music player daemon
         neofetch                   # Print system info
-        notify-desktop             # Works well with dunst
+        notify-desktop             # Script desktop notifications
+        optipng                    # PNG optimizer
         pipes                      # Terminal "screensaver"
-        pngcrush                   # PNG optimizer
         procs                      # Rusted ps
         restic                     # Incremental backup
         ripgrep                    # Rusted grep
@@ -122,6 +107,7 @@
         sd                         # Rusted sed
         tmux                       # Terminal multiplexer
         tokei                      # Display statistics for a given repository
+        udiskie                    # Removable disk automounter for udisks
         unzip                      # Extract .zip archives
         wezterm                    # Terminal configured with Lua
         wget                       # HTTP request CLI
@@ -129,30 +115,18 @@
         yt-dlp                     # Archive videos
 
       ## Dependencies
-        delta                      # Used by batdiff
-        ffmpegthumbnailer          # Video thumbnailer
-        gnumake                    # Required to build nvim telescope-fzf-native
-        openssl                    # Implements SSL and TLS
-        openvpn                    # Required by novpn; Secure VPN tunneling protocol
+        delta                      # Required by batdiff
+        openssl                    # Required by many packages; Implements SSL and TLS
         slop                       # Required by Screenkey
         xclip                      # Required by Neovim; Syncs vim and system clipboards
+    ];
 
-      ## Fonts
+    fonts.packages = with pkgs; [
+        nerd-fonts.commit-mono
         nerd-fonts.fira-code
         nerd-fonts.go-mono
+        nerd-fonts.jetbrains-mono
         nerd-fonts.meslo-lg
         nerd-fonts.symbols-only
-
-      ## Ignore
-        # cava                       # Audio Visualizer for Alsa
-        # clipcat                    # Rusted clipboard manager. No images
-        # discord                    # VOIP and chat
-        # dutree                     # Rusted du
-        # espanso                    # Text expansion
-        # kolourpaint                # Qt paint
-        # krita                      # FOSS photoshop
-        # lf                         # Terminal-based file browser
-        # lua-language-server        # Neovim, AWM
-        # ueberzug                   # Required by lf; Render image thumbnails
     ];
 }
