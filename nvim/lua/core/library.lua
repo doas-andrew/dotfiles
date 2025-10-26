@@ -51,85 +51,13 @@ function fn.vim_cmd_or_fn(arg)
     end
 end
 
---  function as.arr_join(arr, join)
-    --  join = join or string.char(10)
-    --  local tmp = ""
-    --  for idx, ele in pairs(arr) do
-        --  tmp = tmp .. (idx ~= 1 and join .. ele or ele)
-    --  end
-    --  return tmp
---  end
-
--- function as.check_and_set(option, au_type, where, dispatch, boolean)
-    -- if as._default(option, boolean) == true then
-        -- as.nvim_set_au(au_type, where, dispatch)
-    -- end
--- end
-
--- default option
---  function as._default(option, bool)
-    --  if option ~= nil then
-        --  return option
-    --  else
-        --  return bool or false
-    --  end
---  end
-
--- function as._lsp_auto(server)
-    -- local blacklist = vim.g.code_lsp_autostart_blacklist
-    -- if blacklist == nil or #blacklist < 1 then
-        -- return true
-    -- end
-    -- for _, v in pairs(blacklist) do
-        -- if server == v then
-            -- return false
-        -- end
-    -- end
-    -- return true
--- end
-
--- function as._has_value(tbl, value)
-    -- for _, v in pairs(tbl) do
-        -- if value == v then
-            -- return v
-        -- end
-    -- end
--- end
-
--- function as._compe(source, component)
-    -- local blacklist = vim.g.code_compe_sources_blacklist
-    -- if blacklist ~= nil then
-        -- for _, v in pairs(blacklist) do
-            -- if source == v then
-                -- return false
-            -- end
-        -- end
-    -- end
-    -- return component
--- end
-
---  function as.select_theme(theme)
-    --  local all_colors = vim.fn.getcompletion("", "color")
-    --  local default = "gruvbox-material"
-
-    --  for _, v in pairs(all_colors) do
-        --  if theme == v then
-            --  return theme
-        --  end
-    --  end
-
-    --  for _, v in pairs(all_colors) do
-        --  if default == v then
-            --  print(string.format([[colorscheme "%s" doesn't exist, using default]], theme))
-            --  return default
-        --  end
-    --  end
-
-    --  return default
---  end
-
-
-
+function fn.values(tbl)
+  local i = 0
+  return function()
+      i = i + 1
+      return tbl[i]
+  end
+end
 
 
 ----------------------------------------------------------------------------------------------------
@@ -217,6 +145,14 @@ function fn.print_windows()
     end
 end
 
+function fn.toggle_color_column()
+    if vim.opt.colorcolumn["_value"] ~= "" then
+        vim.opt.colorcolumn = ""
+    else
+        vim.opt.colorcolumn = my.color_column
+    end
+end
+
 
 ----------------------------------------------------------------------------------------------------
 -- Mappings
@@ -265,7 +201,8 @@ end
 -- @param commands Autocommand[]
 -- @return number
 function fn.augroup(name, commands, clear)
-    local id = vim.api.nvim_create_augroup(name, { clear = clear or true })
+    if clear == nil then clear = true end
+    local id = vim.api.nvim_create_augroup(name, { clear = clear })
     for _, autocmd in ipairs(commands) do
         local is_callback = type(autocmd.command) == "function"
         vim.api.nvim_create_autocmd(autocmd.event, {
@@ -282,11 +219,11 @@ function fn.augroup(name, commands, clear)
     return id
 end
 
-function fn.autocmd(arr)
-    local script = ""
-    for _, cmd in ipairs(arr) do
-        script = script .. string.format(
-            "\nautocmd %s %s %s", cmd[1], cmd[2], cmd[3])
-    end
-    vim.cmd(script)
+function fn.autocmd(event, pattern, command)
+    local is_callback = type(command) == "function"
+    vim.api.nvim_create_autocmd(event, {
+        callback = is_callback and command or nil,
+        command = not is_callback and command or nil,
+        pattern = pattern,
+    })
 end

@@ -1,7 +1,6 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        lazy = false,
         build = ":TSUpdate",
         dependencies = {
             { "nvim-treesitter/nvim-treesitter-context" },
@@ -33,7 +32,9 @@ return {
         },
     },
     {
+        -- enabled = false,
         "windwp/nvim-ts-autotag",
+        config = true,
         ft = {
             "html",
             "javascript",

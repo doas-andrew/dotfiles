@@ -1,19 +1,21 @@
 return { -- https://lazy.folke.io
 
-    -- Common deps
-    { "nvim-lua/plenary.nvim" },
-    { "nvim-tree/nvim-web-devicons" },
-
     ----------------------------------------------------------------------------
-    -- Utils
+    -- General
     ----------------------------------------------------------------------------
     {
         "lambdalisue/suda.vim",
-        lazy =  false,
     },
     {
+        enabled = false,
         "mg979/vim-visual-multi",
         event = "BufEnter",
+    },
+    {
+        "jake-stewart/multicursor.nvim",
+        branch = "1.0",
+        event = "BufEnter",
+        config = true,
     },
     {
         "windwp/nvim-autopairs",
@@ -29,53 +31,9 @@ return { -- https://lazy.folke.io
         },
     },
     {
-        -- Easymotion
-        "ggandor/leap.nvim",
-        enabled = false,
-    },
-    {
-        -- Tmux integration
-        "christoomey/vim-tmux-navigator",
-        enabled = fn.is_tmux(),
-        event = "BufEnter",
-        init = function()
-            vim.g.tmux_navigator_no_mappings = 1
-        end,
-    },
-    {
-        "kylechui/nvim-surround",
-        lazy = false,
-        -- enabled = false,
-        -- config = function()
-            -- NvimSurround = require("nvim-surround")
-        -- end
-        config = {
-            keymaps = {
-                insert = nil,
-                insert_line = nil,
-                normal = "S",
-                normal_cur = "SS",
-                normal_line = nil,
-                normal_cur_line = nil,
-                visual = "s",
-                visual_line = nil,
-                delete = "ds",
-                change = "cs",
-            },
-            highlight = {
-                duration = 0,
-            },
-        },
-    },
-    {
         "ahmedkhalf/project.nvim",
         name = "project_nvim",
-        lazy = false,
-        config = {
-            detection_methods = { "pattern", "lsp" },
-            manual_mode = true,
-            show_hidden = true,
-        },
+        config = true,
     },
     {
         "NMAC427/guess-indent.nvim",
@@ -83,8 +41,8 @@ return { -- https://lazy.folke.io
         config = true,
     },
     {
+        enabled = false,
         "numToStr/Comment.nvim",
-        lazy = false,
         config = function()
             _G.Comment = require("Comment.api")
         end,
@@ -95,47 +53,29 @@ return { -- https://lazy.folke.io
     -- UI
     ----------------------------------------------------------------------------
     {
-        -- Symbol lookup
-        "stevearc/aerial.nvim",
         enabled = false,
-        config = true,
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons",
-        },
+        "folke/which-key.nvim",
+        event = "VeryLazy",
     },
     {
         -- Notification system for neovim
-        "rcarriga/nvim-notify",
         enabled = false,
+        "rcarriga/nvim-notify",
         config = function()
             vim.notify = require("notify")
-            vim.notify.setup {
-                background_colour = "#000",
-            }
         end,
     },
     {
         -- Adds background color to hex codes
         "norcalli/nvim-colorizer.lua",
+        init = function()
+            require("colorizer").setup()
+        end,
     },
     {
-        -- Dim text outside working area
-        "folke/twilight.nvim",
-        cmd = "Twilight",
         enabled = false,
-    },
-    {
-        "folke/zen-mode.nvim",
-        cmd = "ZenMode",
-        enabled = false,
-        config = {
-            pack = { gitsigns = { enabled = true }}
-        },
-    },
-    {
         "lukas-reineke/indent-blankline.nvim",
-        enabled = false,
+        main = "ibl",
         config = true,
     },
 
@@ -145,6 +85,7 @@ return { -- https://lazy.folke.io
     ----------------------------------------------------------------------------
     {
         -- View additions, deletions, changes
+        enabled = false,
         "lewis6991/gitsigns.nvim",
         event = "BufRead",
         config = true,
@@ -160,71 +101,41 @@ return { -- https://lazy.folke.io
         keys = { "<leader>gy" },
         config = true,
     },
-    {
-        -- git interface
-        "TimUntersberger/neogit",
-        cmd = "Neogit",
-        enabled = false,
-    },
 
 
     ----------------------------------------------------------------------------
     -- LSP
     ----------------------------------------------------------------------------
+    -- {
+    --     "LnL7/vim-nix",
+    --     ft = "nix",
+    -- },
+    -- {
+    --     "alaviss/nim.nvim",
+    --     ft = "nim",
+    -- },
+    -- {
+    --     "prisma/vim-prisma",
+    --     ft = "prisma",
+    -- },
     {
-        "LnL7/vim-nix",
-        ft = "nix",
-    },
-    {
-        "alaviss/nim.nvim",
-        ft = "nim",
-    },
-    {
-        "prisma/vim-prisma",
-        ft = "prisma",
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        enabled = false,
-        dependencies = {
-            {
-                "williamboman/mason.nvim",
-                cmd = "Mason",
-                build = ":MasonUpdate",
-                config = true,
-            },
+        -- Tooltips for function signatures
+        "ray-x/lsp_signature.nvim",
+        event = "InsertEnter",
+        opts = {
+            hint_enable = false,
         },
     },
     {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "ray-x/lsp_signature.nvim" },
-        config = function()
-            require("core.lsp")
-        end,
-    },
-    {
         -- Panel for LSP errors/warnings
+        enabled = false,
         "folke/trouble.nvim",
-        cmd = { "Trouble", "TroubleToggle" },
+        cmd = "Trouble",
         config = {
             action_keys = {
                 previous = "i",
                 next = "k",
             },
-        },
-    },
-    {
-        "utilyre/barbecue.nvim",
-        name = "barbecue",
-        version = "*",
-        dependencies = {
-            "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons", -- optional
-        },
-        opts = {
-            -- configurations go here
         },
     },
 
@@ -234,8 +145,7 @@ return { -- https://lazy.folke.io
     ----------------------------------------------------------------------------
     { "rebelot/kanagawa.nvim" },
     { "navarasu/onedark.nvim" },
-    { "EdenEast/nightfox.nvim" },
-    { "NTBBloodbath/doom-one.nvim" },
+    { "projekt0n/github-nvim-theme" },
     {
         "sainnhe/gruvbox-material",
         init = function()

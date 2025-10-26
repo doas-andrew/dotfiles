@@ -1,21 +1,20 @@
 _G.my = {
     ----------------------------------------------------------------------------
-    --- Theming
+    --- Style
     ----------------------------------------------------------------------------
 
-    -- Set theme; Not compatible with all color schemes
+    -- Set color theme. Not all color schemes implement different themes.
     -- @value: string: light, dark
     color_theme = "dark",
 
-    -- Set theme; Not compatible with all color schemes
-    -- @value: string
-
-    -- color_scheme = "gruvbox-material",
-    -- color_scheme = "monokai-pro",
+    -- Set color scheme.
+    -- @value: string: github_dark, gruvbox-material, kanagawa, monokai-pro,
+    --                 onedark
     color_scheme = "kanagawa",
-    -- color_scheme = "nightfox",
-    -- color_scheme = "onedark",
-    -- color_scheme = "doom-one",
+
+    -- ASCII art for header and footer
+    -- @value: string?: nvim_block, nvim_sharp, nvim_roman
+    start_menu_header = "nvim_sharp",
 
     ----------------------------------------------------------------------------
     --- General
@@ -30,21 +29,14 @@ _G.my = {
     -- @value: boolean
     enable_mouse = true,
 
-    -- Milliseconds to wait for a mapped sequence to complete.
+    -- Milliseconds to wait for a keymap sequence to complete.
     -- @value: integer
-    timeoutlen = 400,
+    sequence_debounce = 400,
 
-    -- Turn this off for "big" files
+    -- NOT IMPLEMENTED
+    -- Disable this when editing "big" files
     -- @value: boolean
     use_swapfile = false,
-
-    -- Debounce swapfile writes for this many milliseconds
-    -- @value: integer
-    updatetime = 350,
-
-    -- Keep the cursor as a block in insert mode.
-    -- @value: boolean
-    cursor_block = false,
 
     -- Cache undo history and restore it to buffer on file load
     -- @value: boolean
@@ -77,25 +69,10 @@ _G.my = {
     -- @value: boolean
     highlight_yank = true,
 
-    -- UNUSED
-    -- Basic trim of trailing whitespace.
-    -- @value: boolean
-    trim_trailing_space = true,
-
-    -- UNUSED
-    -- Keep the last cursor position when reopening a buffer.
-    -- @value: boolean
-    preserve_cursor = true,
-
-    -- UNUSED
+    -- NOT IMPLEMENTED
     -- Format on save.
     -- @value: boolean
     format_on_save = true,
-
-    -- UNUSED
-    -- File explorer side.
-    -- @value: string: left, right
-    explorer_side = "left",
 
     ----------------------------------------------------------------------------
     -- Line and column display
@@ -122,11 +99,7 @@ _G.my = {
 
     -- Column number for right margin. Useful for aligning text.
     -- @value: integer
-    color_column = 81,
-
-    -- Show colorcolumn by default. (Can be toggled)
-    -- @value: boolean
-    show_color_column = false,
+    color_column = "81,101",
 
     ----------------------------------------------------------------------------
     -- Indentation
@@ -144,7 +117,6 @@ _G.my = {
     -- @value: integer
     tab_size = 4,
 
-    -- UNUSED
     -- Show guidelines for nested blocks.
     -- @value: boolean
     indent_guides = false,
@@ -157,57 +129,35 @@ _G.my = {
     -- @value: boolean
     lsp_enabled = true,
 
-    -- List your installed servers
-    -- @value: [String]
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    servers = { "lua_ls", "pylsp", "gopls", "nimls" },
+    -- LSP servers to enable
+    -- @value: strings: lua_ls
+    lsp_servers = { "lua_ls" },
+    -- lsp_servers = { "lua_ls", "pylsp", "gopls", "nimls" },
 
-    -- Enable inline error/hint text
+    -- Enable inline diagnostic text
     -- @value: boolean
-    virtual_text_enabled = false,
+    lsp_diag_inline = true,
+
+    -- Enable showing diagnostic text in floating windows
+    -- @value: boolean
+    lsp_diag_windows = false,
 
     -- Only underline code for this severity level or higher
-    -- @value: string: HINT < INFO < WARN < ERROR
+    -- @value: string: HINT < INFO < WARN < ERROR < DISABLE
     -- @default: hint
-    lsp_underline_level = "warn",
+    lsp_underline_severity = "hint",
 
+    -- NOT IMPLEMENTED
     -- Milliseconds to wait before LSP updates
     -- @value: integer
     -- @default: 150
     lsp_debounce = 300,
 
-    -- UNUSED
-    -- @value: boolean
-    lsp_document_highlight = true,
-
-    -- Enable autocomplete
-    -- @value: boolean
-    code_auto_complete = false,
-
     -- Number of items shown in autocomplete suggestions
     -- @value: integer
-    compe_items = 10,
+    completion_items = 10,
 
     -- Width of LSP window
     -- @value: string: single, double
-    lsp_window_borders = "single",
-
-    ----------------------------------------------------------------------------
-    -- Start menu
-    ----------------------------------------------------------------------------
-
-    -- ASCII art for header and footer
-    -- @value: string?: cowsay, nvim_block, nvim_sharp, nvim_roman
-    st_header = "nvim_sharp",
-    st_footer = nil,
-
-    -- Position of header and footer
-    -- @value: string?: center, pad
-    -- @default: pad
-    st_header_pos = "center",
-    st_footer_pos = nil,
-
-    ----------------------------------------------------------------------------
-    -- End
-    ----------------------------------------------------------------------------
+    lsp_window_border = "single",
 }
