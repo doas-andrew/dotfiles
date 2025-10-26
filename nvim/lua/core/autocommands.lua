@@ -1,7 +1,5 @@
 -- https://neovim.io/doc/user/autocmd.html#events
 
---  local api, fn = vim.api, vim.fn
-
 if my.highlight_yank then
     fn.augroup("TextYankHighlight", {
         {

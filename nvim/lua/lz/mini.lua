@@ -1,60 +1,64 @@
-local banner = require("core.banners")[my.st_header]
+local header = require("core.banners")[my.start_menu_header]
+if header then header = table.concat(header, "\n") end
 
 return {
     {
-        enabled = false,
-        "echasnovski/mini.comment",
+        -- enabled = false,
+        "nvim-mini/mini.comment",
         version = "*",
-        lazy = false,
         config = function()
             _G.MiniComment = require("mini.comment")
         end,
     },
     {
         enabled = false,
-        "echasnovski/mini.surround",
+        "nvim-mini/mini.tabline",
         version = "*",
-        lazy = false,
-        config = function()
-            _G.MiniSurround = require("mini.surround")
-        end,
-    },
-    {
-        enabled = false,
-        "echasnovski/mini.tabline",
-        version = "*",
-        lazy = false,
         config = true,
     },
     {
         enabled = false,
-        "echasnovski/mini.indentscope",
+        "nvim-mini/mini.indentscope",
         version = "*",
-        lazy = false,
         config = true,
     },
     {
         enabled = false,
-        "echasnovski/mini.pairs",
+        "nvim-mini/mini.pairs",
         version = "*",
         event = "InsertEnter",
         config = true,
     },
     {
-        "echasnovski/mini.sessions",
+        "nvim-mini/mini.surround",
         version = "*",
-        lazy = false,
+        opts = {
+            -- mappings = {
+            --     add = "sa",        -- Add surrounding in Normal and Visual modes
+            --     delete = "sd",     -- Delete surrounding
+            --     find = "sf",       -- Find surrounding (to the right)
+            --     find_left = "sF",  -- Find surrounding (to the left)
+            --     highlight = "sh",  -- Highlight surrounding
+            --     replace = "sr",    -- Replace surrounding
+            --     suffix_last = "l", -- Suffix to search with "prev" method
+            --     suffix_next = "n", -- Suffix to search with "next" method
+            -- },
+        },
+    },
+    {
+        "nvim-mini/mini.sessions",
+        version = "*",
         config = true,
     },
     {
-        "echasnovski/mini.starter",
+        "nvim-mini/mini.starter",
         version = "*",
         event = "VimEnter",
         config = function()
-            _G.MiniStarter = require("mini.starter")
-            MiniStarter.setup {
+            local starter = require("mini.starter")
+            starter.setup {
                 silent = true,
-                header = table.concat(banner, "\n") .. "\n",
+                header = header,
                 footer = "",
                 items = {
                     -- { section = "Bookmarks", name = "Alacritty", action = "edit ~/.config/alacritty/alacritty.toml" },
@@ -71,25 +75,22 @@ return {
                     { section = "Neovim",    name = "Keys",      action = "edit ~/.config/nvim/lua/core/keymaps.lua" },
                     { section = "Neovim",    name = "Packages",  action = "edit ~/.config/nvim/lua/lz/init.lua" },
 
-                    MiniStarter.sections.sessions(6, false),
-                    MiniStarter.sections.recent_files(6, false),
+                    starter.sections.sessions(6, false),
+                    starter.sections.recent_files(6, false),
                 }
             }
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "MiniStarterOpened",
-                callback = function()
-                    vim.keymap.del('n', '<M-j>', { buffer = true })
-                    vim.keymap.del('n', '<M-k>', { buffer = true })
+            fn.autocmd("User", "MiniStarterOpened", function()
+                vim.keymap.del('n', '<M-j>', { buffer = true })
+                vim.keymap.del('n', '<M-k>', { buffer = true })
 
-                    vim.keymap.set('n', '<M-i>', function()
-                        MiniStarter.update_current_item('prev')
-                    end, { buffer = true })
+                vim.keymap.set('n', '<M-i>', function()
+                    starter.update_current_item('prev')
+                end, { buffer = true })
 
-                    vim.keymap.set('n', '<M-k>', function()
-                        MiniStarter.update_current_item('next')
-                    end, { buffer = true })
-                end,
-            })
+                vim.keymap.set('n', '<M-k>', function()
+                    starter.update_current_item('next')
+                end, { buffer = true })
+            end)
         end,
     }
 }
