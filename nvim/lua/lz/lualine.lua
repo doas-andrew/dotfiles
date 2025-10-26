@@ -1,7 +1,6 @@
 return {
     -- Status line
     "nvim-lualine/lualine.nvim",
-    lazy = false,
     config = {
         options = {
             icons_enabled = true,

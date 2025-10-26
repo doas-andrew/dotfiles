@@ -2,31 +2,40 @@
 -- Maps
 --------------------------------------------------------------------------------
 
-local opts = { silent = true }
+local opts = { silent = false }
 local map  = fn.make_map("",  opts)
 local cmap = fn.make_map("c", { silent = false })
 local imap = fn.make_map("i", opts)
 local nmap = fn.make_map("n", opts)
 local vmap = fn.make_map("v", opts)
 
+
+--------------------------------------------------------------------------------
+-- Plugins
+--------------------------------------------------------------------------------
+
+-- local comment = require("Comment.api")
+local multic = require("multicursor-nvim")
+local sessions = require("mini.sessions")
+local starter = require("mini.starter")
+local surround = require("mini.surround")
+local telescope = require("telescope.builtin")
+
+
 --------------------------------------------------------------------------------
 -- Environment
 --------------------------------------------------------------------------------
 
 if vim.g.neovide then
-    -- Half-page up
-    nmap("<C-i>", "<C-u>")
-    vmap("<C-i>", "<C-u>")
-
-    -- Delete from line start to cursor
-    cmap("<C-BS>", "<C-u>")
-    imap("<C-BS>", "<C-u>")
+    nmap("<C-i>", "<C-u>", "Move up half a page")
+    vmap("<C-i>", "<C-u>", "Move down half a page")
+    cmap("<C-BS>", "<C-u>", "Delete all preceeding text")
+    imap("<C-BS>", "<C-u>", "Delete all preceeding text")
 else
-    nmap("<C-b>i", "<C-u>")
-    vmap("<C-b>i", "<C-u>")
-
-    cmap("<C-h>", "<C-u>")
-    imap("<C-h>", "<C-u>")
+    nmap("<C-b>i", "<C-u>", "Move up half a page")
+    vmap("<C-b>i", "<C-u>", "Move down half a page")
+    cmap("<C-h>", "<C-u>", "Delete all preceeding text")
+    imap("<C-h>", "<C-u>", "Delete all preceeding text")
 end
 
 if fn.is_wezterm() then
@@ -69,68 +78,61 @@ end
 -- General
 --------------------------------------------------------------------------------
 
-nmap(";", ":", { silent = false })
-nmap("s", ":HopWord<CR>")            -- EasyMotion
-imap("jk", "<ESC>")                  -- Exit insert mode
+nmap(";", ":", { silent = false, desc = "Command mode" })
+nmap("s", ":HopWord<CR>", { nowait = true, desc = "EasyMotion - Jump to word" })
+imap("jk", "<ESC>", "Exit insert mode")
+nmap("M-s", ":w<CR>", "Save current buffer")
 
--- Delete preceeding word
-cmap("<M-BS>", "<C-w>")
-imap("<M-BS>", "<C-w>")
+cmap("<M-BS>", "<C-w>", "Delete preceeding word")
+imap("<M-BS>", "<C-w>", "Delete preceeding word")
 
-cmap("<M-J>", "<S-Left>")
-cmap("<M-L>", "<S-Right>")
+cmap("<M-J>", "<S-Left>", "Move back one word")
+cmap("<M-L>", "<S-Right>", "Move back one word")
 
-nmap("Y", "y$")                      -- Yank to end of line
-vmap("Y", "ygv")                     -- Yank without exiting visual mode
-nmap("<leader>y", "mY0v$<left>y`Y")  -- Yank line without newline char
+nmap("Y", "y$", "Yank to end of line")
+vmap("Y", "ygv", "Yank without exiting visual mode")
+nmap("<leader>y", "m'0v$<left>y`'", "Yank line, excluding newline character")
 
--- Open terminal
-nmap("<leader>ot", ":terminal<CR>i")
+nmap("<leader>ot", ":terminal<CR>i", "Open terminal")
 
--- Delete without overwriting clipboard
-nmap("x", [["_x]])
-nmap("X", [["_dd]])
-nmap("<leader>d", [["_d]])
+nmap("x", [["_x]], "Delete character without overwriting clipboard")
+nmap("X", [["_dd]], "Delete line without overwriting clipboard")
+nmap("<leader>d", [["_d]], "Delete without overwriting clipboard")
 
--- Append line below/above
-nmap("<M-I>", "m1kJ`1")
-nmap("<M-K>", "m1J`1")
+nmap("<M-I>", "m1kJ`1", "Append to line above")
+nmap("<M-K>", "m1J`1", "Append to line below")
 
--- Move selected line / block of text in visual mode
-nmap("I", "v:move '<-2<CR>")
-nmap("K", "v:move '>+1<CR>")
-vmap("I", ":move '<-2<CR>gv=gv")
-vmap("K", ":move '>+1<CR>gv=gv")
+nmap("I", "v:move '<-2<CR>", "Move line up")
+nmap("K", "v:move '>+1<CR>", "Move line down")
+vmap("I", ":move '<-2<CR>gv=gv", "Move selection up")
+vmap("K", ":move '>+1<CR>gv=gv", "Move selection down")
 
--- Search [word]
-nmap("f.", "/<C-r><C-w><CR>")
+nmap("f.", "/<C-r><C-w><CR>", "Search word under cursor")
+nmap("c.", "ciw", "Change word under cursor")
+nmap("ca", [[:%s/<C-r><C-w>//g<Left><Left>]], "Replace all instances of word under cursor in current buffer")
 
--- Replace all instances of [word] in current file
-nmap("ca", [[:%s/<C-r><C-w>//g<Left><Left>]])
-
--- Change inner word
-nmap("c.", "ciw")
-
--- Append current clipboard to the end of the current line
-nmap("<leader>p", "mY$a <ESC>p`Y")
+nmap("<leader>p", "m'$p`'", "Paste at the end of the line")
 
 -- Move to the end of yanked and pasted text
-vmap("y", "y`]")
-vmap("p", "p`]")
-nmap("p", "p`]")
+vmap("y", "y`]", "Yank (copy)")
+vmap("p", "p`]", "Paste")
+nmap("p", "p`]", "Paste")
 
--- Paste from system clipboard
-imap("<C-v>", "<C-r>+")
-cmap("<C-v>", "<C-r>+")
+imap("<C-v>", "<C-r>+", "Paste from system clipboard")
+cmap("<C-v>", "<C-r>+", "Paste from system clipboard")
 
--- Open line above without insert
-nmap("<leader>O", "mYO<ESC>`Y")
-nmap("<leader>o", "mYo<ESC>`Y")
+nmap("<leader>O", "m'O<ESC>`'", "Open line above without insert mode")
+nmap("<leader>o", "m'o<ESC>`'", "Open line below without insert mode")
+
+nmap("<leader>cd", ":lcd %:p:h<CR>:pwd<CR>", { desc = "Change working directory to current directory", silent = false })
 
 
 --------------------------------------------------------------------------------
 -- Comments
 --------------------------------------------------------------------------------
+
+-- nmap("<M-/>", [[:lua Comment.toggle.linewise()<CR><Down>]])
+-- vmap("<M-/>", [[:lua Comment.locked("toggle.linewise")(vim.fn.visualmode())<CR>]])
 
 if Comment then
     nmap("<M-/>", [[:lua Comment.toggle.linewise()<CR><Down>]])
@@ -145,59 +147,41 @@ end
 -- Surround
 --------------------------------------------------------------------------------
 
-if NvimSurround then
-    -- nmap("Sd", [[:lua NvimSurround.delete_surround()<CR>]])
-    -- vmap("Sd", [[:lua NvimSurround.delete_surround()<CR>]])
-elseif MiniSurround then
-    nmap("Sa", [[:lua MiniSurround.add("normal")<CR>]])
-    nmap("Sd", [[:lua MiniSurround.delete()<CR>]])
-    nmap("Sr", [[:lua MiniSurround.replace()<CR>]])
-    vmap("Sa", [[:lua MiniSurround.add("visual")<CR>]])
-    vmap("Sd", [[:lua MiniSurround.delete()<CR>]])
-end
+nmap("Sa", surround.add,     "Add surrounding pair")
+nmap("Sd", surround.delete,  "Delete surrounding pair")
+nmap("Sr", surround.replace, "Replace surrounding pair")
+nmap("cs", surround.replace, "Replace surrounding pair")
+vmap("Sa", surround.add,     "Add surrounding pair")
+vmap("Sd", surround.delete,  "Delete surrounding pair")
 
 
 --------------------------------------------------------------------------------
 -- Toggles
 --------------------------------------------------------------------------------
 
-nmap("<leader>tc", ":ColorizerToggle<CR>")       -- Toggle Colorizer
-nmap("<leader>tf", "za")                         -- Toggle fold under cursor
-nmap("<leader>tF", "zA")                         -- Toggle all folds under cursor
-
--- File explorer
-nmap("<M-e>", ":Neotree toggle<CR>")
-
--- Search highlighting
---  nmap("<leader>th", ":set hlsearch!<CR>")
-nmap("<leader>th", ":noh<CR>")
-
-nmap("<leader>ti", ":IndentBlanklineToggle<CR>") -- Toggle indent guides
---  nmap("<leader>tt", ":Twilight<CR>")              -- Toggle Twilight
-nmap("<leader>tw", ":set wrap!<CR>")             -- Toggle word-wrap
-
--- Relative line number
-nmap("<leader>tnr", ":set relativenumber!<CR>")
-
--- Show vertical bar at column 80
-nmap("<leader>|", [[:execute "set colorcolumn=" . (&colorcolumn == "0" ? "]].. my.color_column ..[[" : "0")<CR>]])
-
---  nmap("M-e", ":NvimTreeToggle<CR>")
---  nmap("<leader>rq", ":cwindow<CR>")
---  nmap("<leader>rl", ":lwindow<CR>")
+nmap("<leader>tc", ":ColorizerToggle<CR>", "Toggle Colorizer")
+nmap("<leader>tf", "za", "Toggle fold under cursor")
+nmap("<leader>tF", "zA", "Toggle all folds under cursor")
+nmap("<M-e>", Snacks.picker.explorer, "Toggle file explorer")
+nmap("<leader>th", ":set hlsearch!<CR>", "Toggle search highlighting")
+nmap("<leader>/", ":noh<CR>", "Clear search highlighting")
+nmap("<leader>tw", ":set wrap!<CR>", "Toggle word-wrapping")
+nmap("<leader>tnr", ":set relativenumber!<CR>", "Toggle relative line numbers")
+nmap("<leader>|", fn.toggle_color_column, "Toggle color column")
+-- nmap("<leader>ti", ":IBLToggle<CR>", "Toggle indentation guidelines")
+nmap("<leader>ti", Snacks.toggle.indent, "Toggle indentation guidelines")
 
 
 --------------------------------------------------------------------------------
 -- Command mode
 --------------------------------------------------------------------------------
 
-cmap("<C-j>", "<home>")
-cmap("<C-l>", "<end>")
-
-cmap("<M-I>", "<Up>")
-cmap("<M-K>", "<Down>")
-cmap("<M-j>", "<Left>")
-cmap("<M-l>", "<Right>")
+cmap("<C-j>", "<home>", "Move cursor to start of line")
+cmap("<C-l>", "<end>", "Move cursor to end of line")
+cmap("<M-I>", "<Up>", "Previous command history entry")
+cmap("<M-K>", "<Down>", "Next command history entry")
+cmap("<M-j>", "<Left>", "Move cursor back one character")
+cmap("<M-l>", "<Right>", "Move cursor forward one character")
 
 
 --------------------------------------------------------------------------------
@@ -232,19 +216,23 @@ vmap("<C-k>",  "<C-d>") -- Half-page down
 
 
 --------------------------------------------------------------------------------
--- Vim Visual Multi
+-- Multi-Cursor
 --------------------------------------------------------------------------------
 
-vim.g.VM_maps = {
-    ["Find Under"] = "<C-d>"
-}
+nmap("<C-d>", multic.matchAddCursor)
+nmap("<C-u>", multic.matchSkipCursor)
+nmap("<Esc>", multic.clearCursors)
+nmap("<c-leftmouse>", multic.handleMouse)
+nmap("<c-leftdrag>", multic.handleMouseDrag)
+nmap("<c-leftrelease>", multic.handleMouseRelease)
 
 
 --------------------------------------------------------------------------------
 -- LSP
 --------------------------------------------------------------------------------
 
-nmap("tt", ":TroubleToggle<CR>")
+nmap("tt", ":Trouble diagnostics toggle<CR>")
+nmap("tt", ":Trouble diagnostics toggle<CR>")
 
 nmap("gr", ":lua vim.lsp.buf.references()<CR>")
 nmap("gd", ":lua vim.lsp.buf.definition()<CR>")
@@ -270,36 +258,24 @@ nmap("<leader>bp",  ":BufferPin<CR>")
 
 
 --------------------------------------------------------------------------------
--- buffers
+-- Buffers
 --------------------------------------------------------------------------------
 
 nmap("<M-w>", ":exit<CR>")
-nmap("<C-w>", ":bdel<CR>")
+nmap("<C-w>", fn.closeBufferOrWindow, { nowait = true })
 
 -- nmap("ZQ", ":lua fn.closeBufferOrWindow()<CR>")
 -- nmap("ZZ", ":w<CR>:lua fn.closeBufferOrWindow()<CR>")
 
--- Previous buffer
-nmap("<BS>", "<C-^>")
--- Can open temp buffers (like help docs) in a new tab
-nmap("<leader>bt", ":lua require('core.util').buf_to_tab()<CR>")
+nmap("<BS>", "<C-^>", "Switch to previous buffer")
 -- Create new, unsaved file at current directory
 nmap("<leader>bf", [[:e <C-R>=expand("%:p:h") . "/" <CR>]],   { silent = false })
 -- Open file from current directory in vertical split
 nmap("<leader>bv", [[:vsp <C-R>=expand("%:p:h") . "/" <CR>]], { silent = false })
 
--- nmap("<leader>bq", ":lua require'core.util'.delete_buffer()<CR>") -- quit buffer
 -- nmap("<leader>bQ", [[:w <bar> %bd <bar> e#<CR>]])             -- quit all buffers but current
 -- nmap("<leader>b%", ":luafile %<CR>", { silent = false })          -- source buffer
 -- nmap("<leader>bn", [[:enew<CR>]], { silent = false })             -- new buffer
-
-
---------------------------------------------------------------------------------
--- File manager
---------------------------------------------------------------------------------
-
--- Change working directory to current directory
-nmap("<leader>cd", ":lcd %:p:h<bar>lua print('current directory is ' .. vim.fn.getcwd())<CR>", { silent = false })
 
 
 --------------------------------------------------------------------------------
@@ -321,18 +297,14 @@ vmap("<S-Tab>", "<gv") -- Dedent without exiting visual mode
 -- Windows
 --------------------------------------------------------------------------------
 
-nmap("<M-s>", ":vsplit<CR>:wincmd l<CR>")
-nmap("<M-u>", ":split<CR>:wincmd j<CR>")
+-- nmap("<M-s>", ":vsplit<CR>:wincmd l<CR>", "Open split to the right")
+nmap("<M-o>", ":vsplit<CR>:wincmd l<CR>", "Open split to the right")
+nmap("<M-u>", ":split<CR>:wincmd j<CR>", "Open split above")
 
-nmap("<S-Up>",    ":resize -10<CR>")
-nmap("<S-Down>",  ":resize +10<CR>")
-nmap("<S-Left>",  ":vertical resize +10<CR>")
-nmap("<S-Right>", ":vertical resize -10<CR>")
-
-nmap("<M-W>", ":resize -10<CR>")
-nmap("<M-A>", ":vertical resize -10<CR>")
-nmap("<M-S>", ":resize +10<CR>")
-nmap("<M-D>", ":vertical resize +10<CR>")
+nmap("<S-Up>",    ":resize -10<CR>", "Decrease pane height")
+nmap("<S-Down>",  ":resize +10<CR>", "Increase pane height")
+nmap("<S-Left>",  ":vertical resize -10<CR>", "Decrease pane width")
+nmap("<S-Right>", ":vertical resize -10<CR>", "Increase pane width")
 
 --  nmap("<S-Up>", ":lua require'core.util'.resize(false, -2)<CR>")
 --  nmap("<S-Down>", ":lua require'core.util'.resize(false, 2)<CR>")
@@ -373,12 +345,14 @@ nmap("<M-D>", ":vertical resize +10<CR>")
 -- Telescope
 --------------------------------------------------------------------------------
 
-local telescope = require('telescope.builtin')
 map("<M-d>", ":Telescope file_browser path=%:p:h<CR>")
 map("<M-F>", ":ProjectRoot<CR>:Telescope live_grep<CR>")
-map("<M-p>", ":ProjectRoot<CR>:Telescope find_files<CR>")
+-- map("<M-p>", ":ProjectRoot<CR>:Telescope find_files<CR>")
+-- map("<M-p>", ":ProjectRoot<CR>:lua Snacks.picker.files()<CR>", "Search files")
+map("<M-p>",      Snacks.picker.files, "Search files")
 map("<M-b>",      telescope.buffers, { silent = false })
 map("<leader>bb", telescope.buffers, { silent = false })
+map("<leader>pp", Snacks.picker.pickers, "Search pickers")
 nmap("<M-O>",     telescope.lsp_document_symbols)
 
 --  map("<M-O>", ":Telescope aerial<CR>")
@@ -397,13 +371,12 @@ nmap("<M-O>",     telescope.lsp_document_symbols)
 -- Git
 --------------------------------------------------------------------------------
 
-nmap("<leader>gl", ":Gitsigns toggle_current_line_blame<CR>") -- toggle line blame
-nmap("<leader>gb", ":Gitsigns blame_line<CR>")                -- git blame
+-- nmap("<leader>gl", ":Gitsigns toggle_current_line_blame<CR>") -- toggle line blame
+-- nmap("<leader>gh", fn.open_current_line_commit) -- toggle line blame
+nmap("<leader>gl", Snacks.picker.git_log_line, "Git log line")
+nmap("<leader>gb", Snacks.git.blame_line, "Git blame line")
 nmap("<leader>gd", ":DiffviewOpen<CR>")                       -- show diff
 nmap("<leader>gr", ":Gitsigns refresh<CR>")
-
--- nmap("<leader>gn", ":Neogit<CR>")                   -- git
--- nmap("<leader>gL", ":Neogit log<CR>")               -- git log
 
 -- nmap("<leader>gB", ":Telescope git_branches<CR>")   -- git branches
 -- nmap("<leader>gf", ":Telescope git_files<CR>")      -- git files
@@ -420,31 +393,13 @@ nmap("<leader>gr", ":Gitsigns refresh<CR>")
 
 
 --------------------------------------------------------------------------------
--- Zen Mode
---------------------------------------------------------------------------------
-
--- nmap("<leader>zf", [[:lua require("plugins.zen").focus()<CR>]])
--- nmap("<leader>zc", [[:lua require("plugins.zen").centered()<CR>]])
--- nmap("<leader>zm", [[:lua require('plugins.zen').minimal()<CR>]])
-nmap("<leader>za", [[:lua require('plugins.zen').ataraxis()<CR>]])
-
-
---------------------------------------------------------------------------------
 -- Session
 --------------------------------------------------------------------------------
 
-nmap("<leader>sm",  [[:lua MiniStarter.open()<CR>]])
-nmap("<leader>sl",  [[:lua MiniSessions.select()<CR>]])
-nmap("<leader>ss",  [[:lua MiniSessions.write(vim.fn.input("Session name: "))<CR>]])
-nmap("<leader>sd",  [[:lua MiniSessions.delete(vim.fn.input("Session name: "))<CR>]])
-
--- nmap("<leader>sm",  ":Startify<CR>") -- Open Startify menu
---  nmap("<leader>sm", ":Dashboard<CR>") -- Open dashboard
---  nmap("<leader>ss", ":SSave<CR>")    -- Save session by name
---  nmap("<leader>sl", ":SLoad<CR>")    -- Load session by name
---  nmap("<leader>sd", ":SDelete<CR>")  -- Delete session by name
---  nmap("<leader>sc", ":SClose<CR>")   -- Close session and return to Startify menu
---  nmap("<leader>sq", ":quitall<CR>")  -- Quit session (it just exits neovim?)
+nmap("<leader>sm",  starter.open, "Open start menu")
+nmap("<leader>sl", sessions.select, "Load session")
+nmap("<leader>ss", function() sessions.write(vim.fn.input("Session name: ")) end, "Save session")
+nmap("<leader>sd", function() sessions.delete(vim.fn.input("Session name: ")) end, "Delete session")
 
 
 --------------------------------------------------------------------------------

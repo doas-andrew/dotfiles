@@ -1,7 +1,10 @@
 return {
     -- Show buffers as tabs
     "romgrk/barbar.nvim",
-    lazy = false,
+    dependencies = {
+        -- "lewis6991/gitsigns.nvim",
+        "nvim-tree/nvim-web-devicons",
+    },
     config = {
         -- Enable/disable animations
         animation = false,
@@ -24,9 +27,9 @@ return {
         icons = {
             button = "",
             gitsigns = {
-                --  added =   { enabled = true, icon = '+' },
-                --  changed = { enabled = true, icon = '~' },
-                --  deleted = { enabled = true, icon = '-' },
+                -- added =   { enabled = true, icon = '+' },
+                -- changed = { enabled = true, icon = '~' },
+                -- deleted = { enabled = true, icon = '-' },
             },
 
             separator = { left='▎', right=' ' },
