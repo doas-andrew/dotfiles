@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 {
     environment.sessionVariables.FILE_MANAGER = "pcmanfm";
+    environment.sessionVariables.MY_WINDOW_MANAGER = "AWESOME";
     environment.sessionVariables.MY_WINDOWING_SYSTEM = "X";
-    environment.sessionVariables.TERMINAL = "alacritty";
-    environment.sessionVariables.XDG_CURRENT_DESKTOP = "AWESOME";
+    environment.sessionVariables.TERMINAL = "wezterm";
 
     services.xserver.windowManager.awesome.enable = true;
     services.greenclip.enable = true;

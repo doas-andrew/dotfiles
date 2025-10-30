@@ -19,6 +19,7 @@ if type conky;      then ln -sfn $dotfiles/conky                     ~/.config/c
 if type doas;       then sudo ln -sfn $dotfiles/doas/doas.conf        /etc/doas.conf;           fi
 if type dunst;      then ln -sfn $dotfiles/dunst                     ~/.config/dunst;           fi
 if type espanso;    then ln -sfn $dotfiles/espanso                   ~/.config/espanso;         fi
+if type foot;       then ln -sfn $dotfiles/foot                      ~/.config/foot;            fi
 if type greenclip;  then ln -sfn $dotfiles/greenclip/greenclip.toml  ~/.config/greenclip.toml;  fi
 if type hx;         then ln -sfn $dotfiles/helix                     ~/.config/helix;           fi
 if type less;       then ln -sfn $dotfiles/less/.lesskey             ~/.lesskey;                fi
@@ -29,6 +30,7 @@ if type pcmanfm;    then ln -sfn $dotfiles/pcmanfm                   ~/.config/p
 if type rofi;       then ln -sfn $dotfiles/rofi                      ~/.config/rofi;            fi
 if type tmux;       then ln -sfn $dotfiles/tmux                      ~/.config/tmux;            fi
 if type wezterm;    then ln -sfn $dotfiles/wezterm                   ~/.config/wezterm;         fi
+if type wofi;       then ln -sfn $dotfiles/wofi                      ~/.config/wofi;            fi
 if type xmodmap;    then ln -sfn $dotfiles/x/Xmodmap                 ~/.Xmodmap;                fi
 if type yazi;       then ln -sfn $dotfiles/yazi                      ~/.config/yazi;            fi
 
@@ -46,23 +48,14 @@ if type zsh; then
     fi
 fi
 
-case $XDG_CURRENT_DESKTOP in
+case $MY_WINDOW_MANAGER in
     AWESOME)
         ln -sfn $dotfiles/awesome ~/.config/awesome
     ;;
     HYPRLAND)
         mkdir -p ~/.config/hypr
-        ln -sfn $dotfiles/hypr/hyprland.conf ~/.config/hypr/hyprland.conf
-        ln -sfn $dotfiles/hypr/hyprpaper.conf ~/.config/hypr/hyprpaper.conf
-    ;;
-esac
-
-case $MY_WINDOWING_SYSTEM in
-    X)
-        echo "nothing to do"
-    ;;
-    WAYLAND)
-        ln -sfn $dotfiles/foot ~/.config/foot
-        ln -sfn $dotfiles/wofi ~/.config/wofi
+        ln -sfn $dotfiles/hypr/hypridle.conf  ~/.config/hypr/hypridle.conf
+        ln -sfn $dotfiles/hypr/hyprland.conf  ~/.config/hypr/hyprland.conf
+        ln -sfn $dotfiles/hypr/hyprshell      ~/.config/hyprshell
     ;;
 esac

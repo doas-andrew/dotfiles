@@ -40,6 +40,7 @@
     # Bluetooth
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = false;
+    hardware.bluetooth.package = pkgs.bluez;
 
     # Audio
     security.rtkit.enable = true;

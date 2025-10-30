@@ -39,6 +39,7 @@
         "image/png"        = "qView.desktop";
         "image/svg+xml"    = "qview.desktop";
         "image/webp"       = "qView.desktop";
+        "text/html"        = "firefox.desktop";
         "text/markdown"    = "sublime_text.desktop";
         "text/plain"       = "sublime_text.desktop";
         "video/webm"       = "mpv.desktop";
@@ -79,6 +80,7 @@
         bat-extras.batwatch
         bat-extras.prettybat
         bottom                     # System monitor (btm)
+        btop                       # System monitor
         cbonsai                    # Grow bonsai trees in your terminal
         cowsay                     # Generates ASCII cow saying something
         croc                       # File transfer CLI (ala magic wormhole)
