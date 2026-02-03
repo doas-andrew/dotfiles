@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-    system.stateVersion = "25.05";
+    system.stateVersion = "25.11";
     # To upgrade:
     #   sudo nix-channel --add https://nixos.org/channels/nixos-XX.XX nixos
     #   sudo nix-channel --update

@@ -84,7 +84,7 @@
         cbonsai                    # Grow bonsai trees in your terminal
         cowsay                     # Generates ASCII cow saying something
         croc                       # File transfer CLI (ala magic wormhole)
-        du-dust                    # Rusted du
+        dust                       # Rusted du
         epr                        # CLI Epub reader
         eza                        # Rusted ls
         fd                         # Rusted find
