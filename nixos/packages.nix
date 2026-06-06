@@ -98,7 +98,6 @@
         jq                         # JSON parser
         killall                    # Kill many processes by name or list of PIDs
         lsix                       # Shows thumbnails in terminal using sixel graphics
-        neofetch                   # Print system info
         notify-desktop             # Script desktop notifications
         optipng                    # PNG optimizer
         pipes                      # Terminal "screensaver"
