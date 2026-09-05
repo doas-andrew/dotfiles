@@ -1,11 +1,3 @@
-local function placement_check(c, func)
-    if awesome.startup then
-        -- Do nothing
-    elseif fn.s_floating(c) then
-        func(c)
-    end
-end
-
 awful.rules.rules = {
     {
         name = "All clients",
@@ -31,18 +23,16 @@ awful.rules.rules = {
                     awful.mouse.client.resize(c)
                 end)
             ),
-            callback = function(c)
+            callback = function(cli)
                 if awesome.startup then
                     -- Prevent clients from being unreachable after screen count changes.
-                    awful.placement.no_offscreen(c)
+                    awful.placement.no_offscreen(cli)
 
-                elseif not c.maximized and fn.s_floating(c) then
-                    awful.placement.centered(c)
-                    -- `placement.centered` does not account for the wibar,
-                    -- so we'll handle the vertical positioning ourselves.
-                    local g = fn.next_x_geometry(c, 1)
-                    if c.y < g.y then
-                        c.y = g.y
+                elseif not cli.maximized and fn.s_floating(cli) then
+                    if my.always_start_maximized then
+                        cli.maximized = true
+                    else
+                        fn.next_full(cli)
                     end
                 end
             end
@@ -50,52 +40,42 @@ awful.rules.rules = {
     },{
         name = "Dialogs",
         rule_any = {
-            type = { "dialog" },
+            role = {
+                "GtkFileChooserDialog",
+            },
+            type = {
+                "dialog",
+            },
             class = {
                 "GParted",
-                ".blueman-manager-wrapped",
-                "Pavucontrol",
                 "flameshot",
+                "Mullvad VPN",
+                "Pavucontrol",
             },
         },
         properties = {
             floating = true,
             maximized = false,
+            callback = false,
+            placement = awful.placement.centered,
+        },
+    },{
+
+        name = "Dialogs",
+        rule_any = {
+            role = {
+                "GtkFileChooserDialog",
+            },
+            type = {
+                "dialog",
+            },
+            class = {
+                ".blueman-manager-wrapped",
+                "Pavucontrol",
+            },
+        },
+        properties = {
             titlebars_enabled = true,
         },
-    },{
-        name = "Start maximized",
-        rule_any = {
-            class = {
-                "Alacritty",
-                "org.wezfurlong.wezterm",
-                "neovide",
-                "Sublime_text",
-            },
-            instance = {
-                "Navigator",
-            },
-        },
-        callback = function(c)
-            placement_check(c, function()
-                if c.type ~= 'normal' then
-                    -- Do nothing
-                elseif my.always_start_maximized then
-                    c.maximized = true
-                elseif theme.useless_gap > 0 then
-                    fn.next_full(c)
-                else
-                    c.maximized = true
-                end
-            end)
-        end,
-    },{
-        name = "Start first half",
-        rule_any = {
-            instance = { "ymuse" },
-        },
-        callback = function(c)
-            placement_check(c, fn.next_half)
-        end,
-    }
+    },
 }

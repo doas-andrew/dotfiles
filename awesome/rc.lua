@@ -12,4 +12,3 @@ require("lua.rules")--┚
 require("lua.signals")
 require("awful.autofocus")
 require("lua.errors")
-require("lua.after")

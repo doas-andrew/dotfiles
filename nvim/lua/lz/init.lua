@@ -24,7 +24,7 @@ return { -- https://lazy.folke.io
     },
     {
         -- Easymotion
-        "phaazon/hop.nvim",
+        "Borber/hop.nvim",
         event = "BufEnter",
         config = {
             keys = my.easymotion_keys,

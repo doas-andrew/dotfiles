@@ -3,6 +3,9 @@ return {
     --- Config
     ----------------------------------------------------------------------
 
+    -- Where are settings kept?
+    -- state_file = "~/.local/state/awesomewm.json",
+
     -- Theme
     -- @value: String: square, rounded
     theme = "rounded",
@@ -11,7 +14,9 @@ return {
     -- @value: String
     layouts = {
         "floating",
-        --  "tile",
+        -- "tile",
+        -- "fair",
+        -- "max",
     },
 
     -- Defaults to $TERMINAL and then xterm
@@ -32,7 +37,7 @@ return {
 
     -- Always start windows maximized (except for dialogs or whatever)
     -- @value: Boolean
-    always_start_maximized = true,
+    always_start_maximized = false,
 
     -- Window buttons to minimize, fullscreen, close, etc
     -- @value: Boolean
@@ -61,4 +66,12 @@ return {
     -- Sleep after X more seconds
     -- @value: Integer
      sleep_delay = 1800,
+
+    ----------------------------------------------------------------------
+    --- Screen Temperature
+    ----------------------------------------------------------------------
+
+    min_screen_temp = 2500,
+    max_screen_temp = 6500,
+    screen_temp_step = 500,
 }

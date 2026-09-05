@@ -1,2 +1,0 @@
---  local tag = awful.screen.focused().selected_tag
---  fn.dump (tag.clients(tag))

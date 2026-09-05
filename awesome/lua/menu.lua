@@ -9,4 +9,6 @@ my.menu = awful.menu {
     }
 }
 
-fn.click_to_hide(my.menu, function() my.menu:hide() end)
+fn.click_to_hide(my.menu, function()
+    my.menu:hide()
+end)

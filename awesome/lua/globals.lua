@@ -9,6 +9,7 @@ _G.awful = require("awful")
 _G.gears = require("gears")
 _G.naughty = require("naughty")
 _G.wibox = require("wibox")
+_G.beautiful = require("beautiful")
 
 _G.lain = require("lain")
 _G.markup = lain.util.markup

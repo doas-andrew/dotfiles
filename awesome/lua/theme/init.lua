@@ -1,5 +1,4 @@
-local beautiful = require("beautiful")
-local theme = require(string.format("lua.themes.%s", my.theme))
+local theme = require(string.format("lua.theme.%s", my.theme))
 
 
 --------------------------------------------------------------------------------

@@ -125,7 +125,14 @@ nmap("<leader>O", "m'O<ESC>`'", "Open line above without insert mode")
 nmap("<leader>o", "m'o<ESC>`'", "Open line below without insert mode")
 
 nmap("<leader>cd", ":lcd %:p:h<CR>:pwd<CR>", { desc = "Change working directory to current directory", silent = false })
+nmap("<leader>/", ":noh<CR>")
 
+nmap("<leader>rw", function()
+  local word = vim.fn.expand('<cword>')
+  -- vim.fn.input('Replace "' .. word .. '" with: ', word)  -- seed input with current word
+  local replacement = vim.fn.input('Replace "' .. word .. '" with: ')
+  vim.cmd('%s/\\<' .. word .. '\\>/' .. replacement .. '/g')
+end, { desc = 'Replace word under cursor', silent = false })
 
 --------------------------------------------------------------------------------
 -- Comments

@@ -1,28 +1,12 @@
---------------------------------------------------------------------------------
--- Wibar
-
-if my.active_tags_only then
-    -- Eminent-like task filtering
-    local orig_filter = awful.widget.taglist.filter.all
-
-    -- Taglist label functions
-    awful.widget.taglist.filter.all = function(t, args)
-        if t.selected or #t:clients() > 0 then
-            return orig_filter(t, args)
-        end
-    end
-end
+local make_taglist = require("lua.wibar.taglist")
+local make_tasklist = require("lua.wibar.tasklist")
+local make_mpd = require("lua.wibar.mpd")
+local screen_temperature = require("lua.wibar.screen_temperature")
 
 awful.screen.connect_for_each_screen(function(s)
     fn.set_wallpaper(s)
     s.padding = theme.screen_padding
     s.myMaxCount = 0
-
-    -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[layout_idx])
-
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
 
     -- Active layout
     local my_layouts = nil
@@ -63,8 +47,8 @@ awful.screen.connect_for_each_screen(function(s)
         notification_preset = {
             position = "top_right",
             --  font = "Monospace 20",
-            fg = theme.fg_normal,
-            bg = theme.bg_normal,
+            fg = theme.wibar_fg,
+            bg = theme.wibar_bg,
         }
     }
     my_clock = {
@@ -73,34 +57,6 @@ awful.screen.connect_for_each_screen(function(s)
         widget = wibox.container.margin,
         my_clock,
     }
-
-    -- Taglist
-    s.myTagList = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = gears.table.join(
-            awful.button({}, 1, function(t) t:view_only() end),
-            awful.button({ metakey }, 1, function(t)
-                if client.focus then
-                    client.focus:move_to_tag(t)
-                end
-            end),
-            awful.button({}, 3, awful.tag.viewtoggle),
-            awful.button({ metakey }, 3, function(t)
-                if client.focus then
-                    client.focus:toggle_tag(t)
-                end
-            end),
-            awful.button({}, 4, function(t) awful.tag.viewprev(t.screen) end),
-            awful.button({}, 5, function(t) awful.tag.viewnext(t.screen) end)
-        )
-    }
-
-    -- Tasklist
-    local my_tasklist = require("lua.tasklist")(s)
-
-    -- MPD
-    local my_mpd = require("lua.mpd")(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar {
@@ -126,18 +82,19 @@ awful.screen.connect_for_each_screen(function(s)
             {
                 layout = wibox.layout.fixed.horizontal,
                 my_launcher,
-                s.myTagList,
-                my_tasklist,
-                s.mypromptbox,
+                make_taglist(s),
+                make_tasklist(s),
+                awful.widget.prompt(),
             },
             {
                 layout = wibox.layout.fixed.horizontal,
-                my_mpd,
+                make_mpd(s),
             },
             {
                 layout = wibox.layout.fixed.horizontal,
                 -- awful.widget.keyboardlayout(),
                 wibox.widget.systray(),
+                screen_temperature,
                 my_clock,
                 my_layouts,
             },

@@ -103,36 +103,12 @@ function M.set_wallpaper(screen)
     end
 end
 
-function M.click_to_hide(widget, hide_fct, only_outside)
-    only_outside = only_outside or false
-
-    hide_fct = hide_fct or function(object)
-        if only_outside and object == widget then
-            return
+function M.click_to_hide(widget, hide_fn, only_outside)
+    client.connect_signal("button::press", function(target)
+        if target ~= widget or only_outside ~= false then
+            hide_fn()
         end
-        widget.visible = false
-    end
-
-    local click_bind = awful.button({}, 1, hide_fct)
-
-    local function manage_signals(w)
-        if w.visible then
-            awful.mouse.append_global_mousebinding(click_bind)
-            client.connect_signal("button::press", hide_fct)
-            wibox.connect_signal("button::press", hide_fct)
-        else
-            wibox.disconnect_signal("button::press", hide_fct)
-            client.disconnect_signal("button::press", hide_fct)
-            awful.mouse.remove_global_mousebinding(click_bind)
-        end
-    end
-
-    -- when the widget is visible, we hide it on button press
-    widget:connect_signal('property::visible', manage_signals)
-
-    function widget.disconnect_click_to_hide()
-        widget:disconnect_signal('property::visible', manage_signals)
-    end
+    end)
 end
 
 function M.default(tbl, key, default)
@@ -142,7 +118,8 @@ function M.default(tbl, key, default)
 end
 
 function M.s_floating(c)
-    return c.screen.selected_tag.layout.name == "floating"
+    local tag = c.screen.selected_tag
+    return tag and tag.layout.name == "floating"
 end
 
 function M.round_rect(num)
@@ -224,6 +201,16 @@ function M.track_defloat(s, increase)
             s.mywibox.shape = theme.wibar.shape
             s.mywibox.border_width = theme.wibar_border_width
             s.mywibox.width = s.geometry.width - theme.wibar.width_offset
+        end
+    end
+end
+
+function M.load_file(file_path)
+    local load_fn = loadfile(file_path)
+    if load_fn then
+        local success, result = pcall(load_fn)
+        if success then
+            return result
         end
     end
 end

@@ -1,5 +1,7 @@
 local header = require("core.banners")[my.start_menu_header]
-if header then header = table.concat(header, "\n") end
+if header then
+    header = table.concat(header, "\n")
+end
 
 return {
     {
@@ -62,7 +64,7 @@ return {
                 footer = "",
                 items = {
                     -- { section = "Bookmarks", name = "Alacritty", action = "edit ~/.config/alacritty/alacritty.toml" },
-                    { section = "Bookmarks", name = "Awesome",   action = "edit ~/.config/awesome/lua/config.lua" },
+                    { section = "Bookmarks", name = "Awesome",   action = "edit ~/.config/awesome/lua/variables/configuration.lua" },
                     { section = "Bookmarks", name = "Emacs",     action = "edit ~/.config/emacs/init.el" },
                     { section = "Bookmarks", name = "Espanso",   action = "edit ~/.config/espanso/match/base.yml" },
                     { section = "Bookmarks", name = "Helix",     action = "edit ~/.config/helix/config.toml" },
